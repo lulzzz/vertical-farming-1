@@ -1,14 +1,14 @@
 {
-  "name": "src",
+  "name": "vertical farming",
   "version": "1.0.0",
-  "description": "",
+  "description": "restful web service for vertical farming sensors",
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
     "test": "mocha --reporter spec --compilers ts:ts-node/register test/**/*.test.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alexander Lerma",
   "license": "ISC",
   "devDependencies": {
     "@types/body-parser": "0.0.33",
