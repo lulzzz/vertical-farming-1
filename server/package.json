@@ -1,5 +1,5 @@
 {
-  "name": "vertical farming",
+  "name": "verticalfarming",
   "version": "1.0.0",
   "description": "restful web service for vertical farming sensors",
   "main": "index.js",

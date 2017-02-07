@@ -2,17 +2,13 @@
 const http = require("http");
 const debug = require("debug");
 const App_1 = require("./App");
-
 debug('ts-express:server');
-
 const port = normalizePort(process.env.PORT || 3000);
 App_1.default.set('port', port);
-
 const server = http.createServer(App_1.default);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
 function normalizePort(val) {
     let port = (typeof val === 'string') ? parseInt(val, 10) : val;
     if (isNaN(port))
@@ -21,7 +17,6 @@ function normalizePort(val) {
         return port;
     return false;
 }
-
 function onError(error) {
     if (error.syscall !== 'listen')
         throw error;
@@ -39,7 +34,6 @@ function onError(error) {
             throw error;
     }
 }
-
 function onListening() {
     let addr = server.address();
     let bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
