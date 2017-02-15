@@ -29,10 +29,14 @@
     "ts-node": "^2.0.0"
   },
   "dependencies": {
+    "@types/dotenv": "^2.0.20",
     "body-parser": "^1.16.0",
     "debug": "^2.6.0",
+    "dotenv": "^4.0.0",
     "express": "^4.14.1",
+    "method-override": "^2.3.7",
     "mongoose": "^4.8.1",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "q": "^1.4.1"
   }
 }
