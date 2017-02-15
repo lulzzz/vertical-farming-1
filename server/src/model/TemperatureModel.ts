@@ -3,6 +3,7 @@
  */
 import {ITemperatureModel} from  "./interfaces/ITemperatureModel";
 
+//Temperature Model
 class TemperatureModel {
 
     private _temperatureModel: ITemperatureModel;
