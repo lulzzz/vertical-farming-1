@@ -2,9 +2,9 @@
  * Created by alexanderlerma on 2/19/17.
  */
 import express = require("express");
-import PhController = require("../../controller/phController");
+import PhController = require("../../controller/PhController");
 
-var router = express.Router();
+let router = express.Router();
 class PhRouter {
     private _phController: PhController;
 
