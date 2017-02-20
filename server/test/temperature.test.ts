@@ -2,7 +2,7 @@ import * as mocha from 'mocha';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
-import app from '../src/index';
+import app = require('../src/index');
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -15,7 +15,6 @@ describe('GET api/temperature', () => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('array');
-        expect(res.body).to.have.length(2);
       });
   });
 
@@ -25,7 +24,6 @@ describe('GET api/temperature', () => {
         let temp1 = res.body.find(sensor => sensor.name === 'temp1');
         expect(temp1).to.exist;
         expect(temp1).to.have.all.keys([
-          'id',
           'name',
           'temperature'
         ]);

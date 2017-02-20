@@ -9,3 +9,5 @@ app.use(Middleware.configuration);
 app.listen(port, () => {
   console.log("Vertical Farming app running at localhost:" + port);
 });
+
+export = app;

@@ -1,16 +1,19 @@
 /**
+ * Created by alexanderlerma on 2/19/17.
+ */
+/**
  * Created by alexanderlerma on 2/15/17.
  */
 "use strict";
-const TemperatureBusiness = require("../business/TemperatureBusiness");
-class TemperatureController {
+const PhBusiness = require("../business/PhBusiness");
+class PhController {
     constructor() {
     }
     create(req, res) {
         try {
-            let Temperature = req.body;
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.create(Temperature, (error, result) => {
+            let Ph = req.body;
+            let phBusiness = new PhBusiness();
+            phBusiness.create(Ph, (error, result) => {
                 if (error)
                     res.send({ "error": "error" });
                 else
@@ -24,10 +27,10 @@ class TemperatureController {
     }
     update(req, res) {
         try {
-            let Temperature = req.body;
+            let Ph = req.body;
             let sensorId = req.params._id;
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.update(sensorId, Temperature, (error, result) => {
+            let phBusiness = new PhBusiness();
+            phBusiness.update(sensorId, Ph, (error, result) => {
                 if (error)
                     res.send({ "error": "error" });
                 else
@@ -42,8 +45,8 @@ class TemperatureController {
     delete(req, res) {
         try {
             let _id = req.params._id;
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.delete(_id, (error, result) => {
+            let phBusiness = new PhBusiness();
+            phBusiness.delete(_id, (error, result) => {
                 if (error)
                     res.send({ "error": "error" });
                 else
@@ -57,8 +60,8 @@ class TemperatureController {
     }
     retrieve(req, res) {
         try {
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.retrieve((error, result) => {
+            let phBusiness = new PhBusiness();
+            phBusiness.retrieve((error, result) => {
                 if (error)
                     res.send({ "error": "error" });
                 else
@@ -73,8 +76,8 @@ class TemperatureController {
     findById(req, res) {
         try {
             let _id = req.params._id;
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.findById(_id, (error, result) => {
+            let phBusiness = new PhBusiness();
+            phBusiness.findById(_id, (error, result) => {
                 if (error)
                     res.send({ "error": "error" });
                 else
@@ -87,4 +90,4 @@ class TemperatureController {
         }
     }
 }
-module.exports = TemperatureController;
+module.exports = PhController;

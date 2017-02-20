@@ -7,5 +7,4 @@ class Constants {
 }
 
 Object.seal(Constants);
-console.log("MONGO_URI: " + Constants.MONGO_URI);
 export = Constants;
