@@ -3,12 +3,12 @@
  */
 
 import express = require("express");
-import TemperatureBusiness = require("../service/temperature.service");
-import {ITemperatureModel} from "../model/interfaces/temperature.model";
+import TemperatureService = require("../service/temperature.service");
+import {ITemperatureModel} from "../model/interfaces/sensor/temperature.model";
 import {IBaseController} from "./interfaces/base/base.controller";
 
 
-class TemperatureController implements IBaseController<TemperatureBusiness> {
+class TemperatureController implements IBaseController<TemperatureService> {
 
     constructor() {
 
@@ -18,8 +18,8 @@ class TemperatureController implements IBaseController<TemperatureBusiness> {
         try {
 
             let Temperature: ITemperatureModel = <ITemperatureModel>req.body;
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.create(Temperature, (error, result) => {
+            let temperatureService = new TemperatureService();
+            temperatureService.create(Temperature, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -34,8 +34,8 @@ class TemperatureController implements IBaseController<TemperatureBusiness> {
         try {
             let Temperature: ITemperatureModel = <ITemperatureModel>req.body;
             let sensorId: string = req.params._id;
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.update(sensorId, Temperature, (error, result) => {
+            let temperatureService = new TemperatureService();
+            temperatureService.update(sensorId, Temperature, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -50,8 +50,8 @@ class TemperatureController implements IBaseController<TemperatureBusiness> {
         try {
 
             let _id: string = req.params._id;
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.delete(_id, (error, result) => {
+            let temperatureService = new TemperatureService();
+            temperatureService.delete(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -65,8 +65,8 @@ class TemperatureController implements IBaseController<TemperatureBusiness> {
     retrieve(req: express.Request, res: express.Response): void {
         try {
 
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.retrieve((error, result) => {
+            let temperatureService = new TemperatureService();
+            temperatureService.retrieve((error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });
@@ -81,8 +81,8 @@ class TemperatureController implements IBaseController<TemperatureBusiness> {
         try {
 
             let _id: string = req.params._id;
-            let temperatureBusiness = new TemperatureBusiness();
-            temperatureBusiness.findById(_id, (error, result) => {
+            let temperatureService = new TemperatureService();
+            temperatureService.findById(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });

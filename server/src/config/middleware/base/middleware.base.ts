@@ -10,7 +10,7 @@ import BaseRouter = require("../../routes/base/base.router");
 class MiddlewaresBase {
 
     static get configuration () {
-        var app = express();
+        let app = express();
         app.use(bodyParser.json());
         app.use(MethodOverride.configuration());
         app.use(new BaseRouter().routes);

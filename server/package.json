@@ -1,5 +1,5 @@
 {
-  "name": "verticalfarming",
+  "name": "verticalfarming-server",
   "version": "1.0.0",
   "description": "restful web service for vertical farming sensors",
   "main": "index.js",
@@ -42,6 +42,7 @@
     "method-override": "2.3.7",
     "mongoose": "^4.8.1",
     "morgan": "^1.7.0",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "socket.io": "1.7.3"
   }
 }

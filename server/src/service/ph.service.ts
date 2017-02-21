@@ -1,44 +1,44 @@
 /**
  * Created by alexanderlerma on 2/19/17.
  */
-import pHRepository = require("../repository/ph.repository");
+import PhRepository = require("../repository/ph.repository");
 import {IPhService} from "./interfaces/ph.service";
-import {IPhModel} from "../model/interfaces/ph.model";
-import pHModel = require("../model/ph.model");
+import {IPhModel} from "../model/interfaces/sensor/ph.model";
+import PhModel = require("../model/ph.model");
 
 
 class PhService implements IPhService {
-    private _pHRepository: pHRepository;
+    private _PhRepository: PhRepository;
 
     constructor () {
-        this._pHRepository = new pHRepository();
+        this._PhRepository = new PhRepository();
     }
 
     create (item: IPhModel, callback: (error: any, result: any) => void) {
-        this._pHRepository.create(item, callback);
+        this._PhRepository.create(item, callback);
     }
 
     retrieve (callback: (error: any, result: any) => void) {
-        this._pHRepository.retrieve(callback);
+        this._PhRepository.retrieve(callback);
     }
 
     update (_id: string, item: IPhModel, callback: (error: any, result: any) => void) {
 
-        this._pHRepository.findById(_id, (err, res) => {
+        this._PhRepository.findById(_id, (err, res) => {
             if(err) callback(err, res);
 
             else
-                this._pHRepository.update(res._id, item, callback);
+                this._PhRepository.update(res._id, item, callback);
 
         });
     }
 
     delete (_id: string, callback:(error: any, result: any) => void) {
-        this._pHRepository.delete(_id , callback);
+        this._PhRepository.delete(_id , callback);
     }
 
     findById (_id: string, callback: (error: any, result: IPhModel) => void) {
-        this._pHRepository.findById(_id, callback);
+        this._PhRepository.findById(_id, callback);
     }
 
 }

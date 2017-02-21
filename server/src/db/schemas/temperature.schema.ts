@@ -1,5 +1,5 @@
 import DataAccess = require("../data-access");
-import {ITemperatureModel} from "../../model/interfaces/temperature.model";
+import {ITemperatureModel} from "../../model/interfaces/sensor/temperature.model";
 
 const mongoose = DataAccess.mongooseInstance;
 const mongooseConnection = DataAccess.mongooseConnection;
@@ -8,7 +8,7 @@ class TemperatureSchema {
 
     static get schema() {
 
-        return mongoose.Schema({
+        let schema =  mongoose.Schema({
             name: {
                 type: String,
                 required: true
@@ -34,10 +34,13 @@ class TemperatureSchema {
             next();
             return this;
         });
+
+
+        return schema;
     }
 }
 
-let schema =  mongooseConnection.model<ITemperatureModel>("temperature", TemperatureSchema.schema, "temperature");
+let schema = mongooseConnection.model<ITemperatureModel>("temperature", TemperatureSchema.schema, "temperature");
 export = schema;
 
 
