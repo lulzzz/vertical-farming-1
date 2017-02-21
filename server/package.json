@@ -4,12 +4,13 @@
   "description": "restful web service for vertical farming sensors",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "postinstall": "gulp build",
+    "start": "nf start",
     "test": "mocha --reporter spec --compilers ts:ts-node/register test/**/*.test.ts"
   },
   "keywords": [],
   "author": "Alexander Lerma",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/body-parser": "0.0.33",
     "@types/chai": "^3.4.34",
@@ -35,9 +36,10 @@
     "debug": "^2.6.0",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
+    "foreman": "2.0.0",
     "gulp": "^3.9.1",
     "gulp-typescript": "^3.1.5",
-    "method-override": "^2.3.7",
+    "method-override": "2.3.7",
     "mongoose": "^4.8.1",
     "morgan": "^1.7.0",
     "q": "^1.4.1"

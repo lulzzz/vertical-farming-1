@@ -1,5 +1,5 @@
 import express = require("express");
-import Middleware = require("./config/middleware/base/MiddlewareBase");
+import Middleware = require("./config/middleware/base/middleware.base");
 
 let app = express();
 let port = parseInt(process.env.PORT, 10) || 5000;
