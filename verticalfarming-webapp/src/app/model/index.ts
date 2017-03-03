@@ -3,3 +3,4 @@
  */
 export * from './ph.model';
 export * from './temperature.model';
+export * from './base.model'

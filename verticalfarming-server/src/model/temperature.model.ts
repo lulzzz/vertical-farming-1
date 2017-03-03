@@ -4,7 +4,7 @@
 import {ITemperatureModel} from  "./interfaces/sensor/temperature.model";
 
 //Temperature Model
-class TemperatureModel {
+export class TemperatureModel {
 
     private _temperatureModel: ITemperatureModel;
 
@@ -28,6 +28,3 @@ class TemperatureModel {
         return this._temperatureModel.modifiedAt;
     }
 }
-
-Object.seal(TemperatureModel);
-export = TemperatureModel;

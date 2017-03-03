@@ -1,12 +1,12 @@
-import {IRead} from  "../interfaces/base/read";
-import {IWrite} from "../interfaces/base/write";
-import mongoose = require("mongoose");
+import {IRead} from  '../interfaces/base/read';
+import {IWrite} from '../interfaces/base/write';
+import {Document, Model, Types} from 'mongoose';
 
-class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T> {
+export class RepositoryBase<T extends Document> implements IRead<T>, IWrite<T> {
 
-    protected _model: mongoose.Model<mongoose.Document>;
+    protected _model: Model<Document>;
 
-    constructor (schemaModel: mongoose.Model<mongoose.Document>) {
+    constructor (schemaModel: Model<Document>) {
         this._model = schemaModel;
     }
 
@@ -19,7 +19,7 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
         this._model.find({}, callback)
     }
 
-    update (_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
+    update (_id: Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
         this._model.update({_id: _id}, item, callback);
 
     }
@@ -34,10 +34,7 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     }
 
 
-    private toObjectId (_id: string) : mongoose.Types.ObjectId {
-        return mongoose.Types.ObjectId.createFromHexString(_id)
+    private toObjectId (_id: string) : Types.ObjectId {
+        return Types.ObjectId.createFromHexString(_id)
     }
 }
-
-Object.seal(RepositoryBase);
-export = RepositoryBase;

@@ -4,7 +4,7 @@
 import {IPhModel} from  "./interfaces/sensor/ph.model";
 
 //Ph Model
-class PhModel {
+export class PhModel {
 
     private _phModel: IPhModel;
 
@@ -28,6 +28,3 @@ class PhModel {
         return this._phModel.modifiedAt;
     }
 }
-
-Object.seal(PhModel);
-export = PhModel;

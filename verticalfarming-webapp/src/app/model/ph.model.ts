@@ -1,19 +1,18 @@
 /**
  * Created by alexanderlerma on 2/27/17.
  */
-export class Ph {
 
-  private _name: string
-  private _ph: number
+import {BaseSensor} from "./base.model";
 
-  constructor(name: string, ph: number) {
-    this._name = name;
+export class Ph extends BaseSensor {
+
+  private _ph: number;
+
+  constructor(name: string, room: number, rack: number, ph: number) {
+    super(name, room, rack);
     this._ph = ph;
   }
 
-  get name(): string {
-    return this._name;
-  }
 
   get ph(): number {
     return this._ph;

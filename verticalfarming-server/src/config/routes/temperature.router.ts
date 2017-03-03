@@ -1,7 +1,7 @@
 import express = require("express");
 import TemperatureController = require("../../controller/temperature.controller");
 
-var router = express.Router();
+const router = express.Router();
 class TemperatureRouter {
   private _temperatureController: TemperatureController;
 

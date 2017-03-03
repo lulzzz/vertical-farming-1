@@ -1,18 +1,15 @@
 /**
  * Created by alexanderlerma on 2/27/17.
  */
-export class Temperature {
+import {BaseSensor} from "./base.model";
 
-  private _name: string
-  private _temperature: number
+export class Temperature extends BaseSensor {
 
-  constructor(name: string, temperature: number) {
-    this._name = name;
+  private _temperature: number;
+
+  constructor(name: string, room: number, rack: number, temperature: number) {
+    super(name, room, rack);
     this._temperature = temperature;
-  }
-
-  get name(): string {
-    return this._name;
   }
 
   get temperature(): number {

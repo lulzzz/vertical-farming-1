@@ -3,8 +3,5 @@
  */
 import {ISensor} from "./base/base.sensor"
 export interface IPhModel extends ISensor {
-    name: string;
     ph: number;
-    createdAt?: Date;
-    modifiedAt?: Date;
 }
