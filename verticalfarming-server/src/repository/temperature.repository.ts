@@ -1,6 +1,6 @@
 import {ITemperatureModel} from "../model/interfaces/sensor/temperature.model";
 import TemperatureModel = require("../model/temperature.model");
-import TemperatureSchema = require("../db/schemas/temperature.schema");
+import TemperatureSchema = require("../schemas/temperature.schema");
 import {RepositoryBase} from "./base/repository.base";
 
 

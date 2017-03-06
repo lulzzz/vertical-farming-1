@@ -2,10 +2,10 @@
  * Created by alexanderlerma on 2/19/17.
  */
 import express = require("express");
-import PhController = require("../../controller/ph.controller");
+import {PhController} from "../controller/ph.controller";
 
 let router = express.Router();
-class PhRouter {
+export class PhRouter {
     private _phController: PhController;
 
     constructor() {
@@ -22,6 +22,3 @@ class PhRouter {
         return router;
     }
 }
-
-Object.seal(PhRouter);
-export = PhRouter;

@@ -3,19 +3,19 @@
  */
 import express = require("express");
 import bodyParser = require("body-parser");
-import MethodOverride = require("../method-override.config");
-import BaseRouter = require("../../routes/base/base.router");
+import expressValidator = require('express-validator');
+import {BaseRouter} from "../../../routes/base/base.router";
+import {MethodOverride} from "../method-override.config";
 
 
-class MiddlewaresBase {
+export class MiddlewaresBase {
 
     static get configuration () {
         let app = express();
         app.use(bodyParser.json());
+        app.use(expressValidator());
         app.use(MethodOverride.configuration());
         app.use(new BaseRouter().routes);
         return app;
     }
 }
-Object.seal(MiddlewaresBase);
-export = MiddlewaresBase;

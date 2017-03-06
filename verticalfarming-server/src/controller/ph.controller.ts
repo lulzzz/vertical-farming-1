@@ -1,9 +1,6 @@
 /**
  * Created by alexanderlerma on 2/19/17.
  */
-/**
- * Created by alexanderlerma on 2/15/17.
- */
 
 import express = require("express");
 import PhService = require("../service/ph.service");
@@ -11,7 +8,7 @@ import {IPhModel} from "../model/interfaces/sensor/ph.model";
 import {IBaseController} from "./interfaces/base/base.controller";
 
 
-class PhController implements IBaseController<PhService> {
+export class PhController implements IBaseController<PhService> {
 
     constructor() {
 
@@ -97,5 +94,3 @@ class PhController implements IBaseController<PhService> {
         }
     }
 }
-
-export = PhController;

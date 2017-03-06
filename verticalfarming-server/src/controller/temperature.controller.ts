@@ -8,7 +8,7 @@ import {ITemperatureModel} from "../model/interfaces/sensor/temperature.model";
 import {IBaseController} from "./interfaces/base/base.controller";
 
 
-class TemperatureController implements IBaseController<TemperatureService> {
+export class TemperatureController implements IBaseController<TemperatureService> {
 
     constructor() {
 
@@ -20,8 +20,8 @@ class TemperatureController implements IBaseController<TemperatureService> {
             let Temperature: ITemperatureModel = <ITemperatureModel>req.body;
             let temperatureService = new TemperatureService();
             temperatureService.create(Temperature, (error, result) => {
-                if(error) res.send({"error": "error"});
-                else res.send({"success": "success"});
+                if(error) res.send({"error": error});
+                else res.send({"success": result});
             });
         }
         catch (e)  {
@@ -94,5 +94,3 @@ class TemperatureController implements IBaseController<TemperatureService> {
         }
     }
 }
-
-export = TemperatureController;

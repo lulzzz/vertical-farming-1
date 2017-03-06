@@ -1,7 +1,7 @@
 import express = require("express");
 const methodOverride = require("method-override");
 
-class MethodOverride {
+export class MethodOverride {
 
     static configuration () : any {
         let app = express();
@@ -12,5 +12,3 @@ class MethodOverride {
         return app;
     }
 }
-Object.seal(MethodOverride);
-export = MethodOverride;

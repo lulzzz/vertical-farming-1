@@ -2,7 +2,7 @@
  * Created by alexanderlerma on 2/15/17.
  */
 import Mongoose = require("mongoose");
-import Constants = require("../config/constants/constants");
+import {Constants} from "../constants/constants";
 
 class DataAccess {
     static mongooseInstance: any;

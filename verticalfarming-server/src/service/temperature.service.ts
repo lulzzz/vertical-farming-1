@@ -2,6 +2,7 @@ import TemperatureRepository = require("../repository/temperature.repository");
 import {ITemperatureService} from "./interfaces/temperature.service";
 import {ITemperatureModel} from "../model/interfaces/sensor/temperature.model";
 import TemperatureModel = require("../model/temperature.model");
+import {SearchRequest} from "../model/searchrequest.model";
 
 
 class TemperatureService implements ITemperatureService {
@@ -36,6 +37,10 @@ class TemperatureService implements ITemperatureService {
 
     findById (_id: string, callback: (error: any, result: ITemperatureModel) => void) {
         this._TemperatureRepository.findById(_id, callback);
+    }
+
+    searchRequest(searchRequest: SearchRequest, callback: (error: any, result: any) => void)  {
+        this._TemperatureRepository.searchRequest(searchRequest, callback);
     }
 
 

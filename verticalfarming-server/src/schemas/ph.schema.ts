@@ -1,8 +1,9 @@
+import DataAccess = require("../config/db/data-access");
+import {IPhModel} from "../model/interfaces/sensor/ph.model";
 /**
  * Created by alexanderlerma on 2/19/17.
  */
-import DataAccess = require("../data-access");
-import {IPhModel} from "../../model/interfaces/sensor/ph.model";
+
 
 const mongoose = DataAccess.mongooseInstance;
 const mongooseConnection = DataAccess.mongooseConnection;
@@ -11,8 +12,16 @@ class PhSchema {
 
     static get schema() {
 
-        let schema = mongoose.Schema({
+        const schema = mongoose.Schema({
             name: {
+                type: String,
+                required: true
+            },
+            room: {
+                type: String,
+                required: true
+            },
+            rack: {
                 type: String,
                 required: true
             },
@@ -38,6 +47,7 @@ class PhSchema {
             return this;
         });
 
+        schema.index({name :'text', room: 'text', rack: 'text'});
         return schema;
     }
 }

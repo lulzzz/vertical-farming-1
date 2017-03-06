@@ -4,7 +4,7 @@
 import {IPhModel} from '../model/interfaces/sensor/ph.model';
 import {RepositoryBase} from './base/repository.base'
 import PhModel = require("../model/ph.model");
-import PhSchema = require("../db/schemas/ph.schema");
+import PhSchema = require("../schemas/ph.schema");
 
 
 class PhRepository extends RepositoryBase<IPhModel> {

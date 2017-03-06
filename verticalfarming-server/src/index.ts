@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as http from "http";
-import Middleware = require("./config/middleware/base/middleware.base");
+import {MiddlewaresBase} from "./config/middleware/base/middleware.base";
 const io = require('socket.io');
 
 class Server {
@@ -32,7 +32,7 @@ class Server {
 
     private config() {
         this.port = parseInt(process.env.PORT, 10) || 5000;
-        this._app.use(Middleware.configuration);
+        this._app.use(MiddlewaresBase.configuration);
         this._app.set("port", this.port);
     }
 

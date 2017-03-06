@@ -5,8 +5,8 @@ import mongoose = require("mongoose");
 
 export interface ISensor extends mongoose.Document {
     name: string;
-    room: number;
-    rack: number;
+    room: string;
+    rack: string;
     createdAt?: Date;
     modifiedAt?: Date;
 }

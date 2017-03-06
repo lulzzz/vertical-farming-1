@@ -5,6 +5,7 @@ import PhRepository = require("../repository/ph.repository");
 import {IPhService} from "./interfaces/ph.service";
 import {IPhModel} from "../model/interfaces/sensor/ph.model";
 import PhModel = require("../model/ph.model");
+import {SearchRequest} from "../model/searchrequest.model";
 
 
 class PhService implements IPhService {
@@ -39,6 +40,10 @@ class PhService implements IPhService {
 
     findById (_id: string, callback: (error: any, result: IPhModel) => void) {
         this._PhRepository.findById(_id, callback);
+    }
+
+    searchRequest(searchRequest: SearchRequest, callback: (error: any, result: any) => void)  {
+        this._PhRepository.searchRequest(searchRequest, callback);
     }
 
 }
