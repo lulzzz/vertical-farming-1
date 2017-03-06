@@ -38,6 +38,7 @@ class Server {
 
     private sockets() {
         this.io = io(this.server);
+        this._app.set('socketio', this.io);
     }
 
     private listen() {

@@ -64,7 +64,6 @@ export class PhController implements IBaseController<PhService> {
     }
     retrieve(req: express.Request, res: express.Response): void {
         try {
-
             let phService = new PhService();
             phService.retrieve((error, result) => {
                 if(error) res.send({"error": "error"});

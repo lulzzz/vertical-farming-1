@@ -6,6 +6,7 @@ import express = require("express");
 import TemperatureService = require("../service/temperature.service");
 import {ITemperatureModel} from "../model/interfaces/sensor/temperature.model";
 import {IBaseController} from "./interfaces/base/base.controller";
+import {isUndefined} from "util";
 
 
 export class TemperatureController implements IBaseController<TemperatureService> {
@@ -16,12 +17,21 @@ export class TemperatureController implements IBaseController<TemperatureService
 
     create(req: express.Request, res: express.Response): void {
         try {
+            let temperature: ITemperatureModel;
+            if(!isUndefined(req.params.data)) {
+                temperature = <ITemperatureModel>req.params.data;
+            } else {
+                temperature = <ITemperatureModel>req.body;
+            }
 
-            let Temperature: ITemperatureModel = <ITemperatureModel>req.body;
             let temperatureService = new TemperatureService();
-            temperatureService.create(Temperature, (error, result) => {
+            temperatureService.create(temperature, (error, result) => {
                 if(error) res.send({"error": error});
-                else res.send({"success": result});
+                else {
+                    const io = req.app.get('socketio');
+                    io.emit('temperature/success', result);
+                    res.send({"success": result});
+                }
             });
         }
         catch (e)  {
