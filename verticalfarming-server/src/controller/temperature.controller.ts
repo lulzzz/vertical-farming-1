@@ -17,8 +17,8 @@ export class TemperatureController implements IBaseController<TemperatureService
 
     create(req: express.Request, res: express.Response): void {
         try {
-            console.log("body is: \n" + req.body);
-            console.log("data is: \n" + req.params);
+            console.log("body is: \n" + JSON.stringify(req.body));
+            console.log("data is: \n" + JSON.stringify(req.params));
 
             let temperature: ITemperatureModel = <ITemperatureModel>req.body;
 
