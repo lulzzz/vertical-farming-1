@@ -18,10 +18,10 @@ export class TemperatureController implements IBaseController<TemperatureService
     create(req: express.Request, res: express.Response): void {
         try {
             let temperature: ITemperatureModel;
-            if(!isUndefined(req.body.body)) {
-                temperature = <ITemperatureModel>JSON.parse(req.body.body);
-            } else {
+            try {
                 temperature = <ITemperatureModel>req.body;
+            } catch(e) {
+                temperature = <ITemperatureModel>JSON.parse(req.body.body);
             }
 
             let temperatureService = new TemperatureService();
