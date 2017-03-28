@@ -17,9 +17,6 @@ export class TemperatureController implements IBaseController<TemperatureService
 
     create(req: express.Request, res: express.Response): void {
         try {
-            console.log("body is: \n" + JSON.stringify(req.body));
-            console.log("data is: \n" + JSON.stringify(req.params));
-
             let temperature: ITemperatureModel;
             if(!isUndefined(req.body.body)) {
                 temperature = <ITemperatureModel>JSON.parse(req.body.body);
@@ -32,7 +29,7 @@ export class TemperatureController implements IBaseController<TemperatureService
                 if(error) res.send({"error": error});
                 else {
                     const io = req.app.get('socketio');
-                    io.emit('temperature/success', result);
+                    io.emit('data/success', result);
                     res.send({"success": result});
                 }
             });

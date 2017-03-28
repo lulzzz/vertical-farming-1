@@ -1,17 +1,15 @@
 /**
  * Created by alexanderlerma on 2/28/17.
  */
-export class BaseSensor {
+export class Sensor {
 
-  private _name: string;
-  private _room: number;
-  private _rack: number;
-
-  constructor(name: string, room: number, rack: number) {
-    this._name = name;
-    this._room = room;
-    this._rack = rack;
-  }
+  constructor(private _name: string,
+              private _room: number,
+              private _rack: number,
+              private _createdAt: Date,
+              private _modifiedAt: Date,
+              private _data: number,
+              private _type: string) {}
 
 
   get name(): string {
@@ -25,4 +23,21 @@ export class BaseSensor {
   get rack(): number {
     return this._rack;
   }
+
+  get createdAt(): Date {
+    return this._createdAt;
+  }
+
+  get modifiedAt(): Date {
+    return this._modifiedAt;
+  }
+
+  get data(): number {
+    return this._data;
+  }
+
+  get type(): string {
+    return this._type;
+  }
 }
+

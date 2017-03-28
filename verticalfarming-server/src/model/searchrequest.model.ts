@@ -16,15 +16,12 @@ export class SearchRequest {
     }
 
     private validate(req: Request) {
-        this._name = req.checkParams('name').optional().isAlphanumeric() ? req.params.name : undefined;
-        this._room = req.checkParams('room').optional().isAlphanumeric() ? req.params.room : undefined;
-        this._rack = req.checkParams('rack').optional().isAlphanumeric() ? req.params.rack : undefined;
-        this._startDate = req.checkParams('startDate').optional().isDate()
-            ? new Date(req.params.startDate) : undefined;
-        this._endDate = req.checkParams('endDate').optional().isDate()
-            ? new Date(req.params.endDate) : undefined;
-        this._useFullText =  req.checkParams('useFullText').optional().isBoolean()
-            ? req.params.useFullText : false;
+        this._name = req.body.name;
+        this._room = req.body.room;
+        this._rack = req.body.rack;
+        this._startDate = req.body.startDate;
+        this._endDate = req.body.endDate;
+        this._useFullText =  req.body.useFullText;
     }
 
 
@@ -53,7 +50,7 @@ export class SearchRequest {
     }
 
     get searchString(): string {
-        let str = []
+        let str = [];
         str.push(
             isUndefined(this.name) ? '' : this.name,
             ' ',

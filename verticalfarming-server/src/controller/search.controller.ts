@@ -8,17 +8,14 @@ import {SearchRequest} from "../model/searchrequest.model";
 
 export class SearchController {
 
-    private searchService: SearchService;
-
-    constructor() {
-        this.searchService = new SearchService();
-    }
+    constructor() {}
 
     searchRequest (req: Request, res: Response): void {
         try {
             const searchRequest: SearchRequest = new SearchRequest(req);
+            const searchService = new SearchService();
             console.log(searchRequest);
-            this.searchService.searchRequest(searchRequest, (error, result) => {
+            searchService.searchRequest(searchRequest, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });

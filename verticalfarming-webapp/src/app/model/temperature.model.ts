@@ -1,18 +1,11 @@
 /**
  * Created by alexanderlerma on 2/27/17.
  */
-import {BaseSensor} from "./base.model";
+import {Sensor} from "./base.model";
 
-export class Temperature extends BaseSensor {
+export class Temperature extends Sensor {
 
-  private _temperature: number;
-
-  constructor(name: string, room: number, rack: number, temperature: number) {
-    super(name, room, rack);
-    this._temperature = temperature;
-  }
-
-  get temperature(): number {
-    return this._temperature;
+  constructor(name: string, room: number, rack: number, createdAt: Date, modifiedAt: Date, data: number, type: string) {
+    super(name, room, rack, createdAt, modifiedAt, data, "temperature");
   }
 }

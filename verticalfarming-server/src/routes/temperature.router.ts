@@ -12,11 +12,11 @@ export class TemperatureRouter {
 
   get routes () {
     let controller = this._temperatureController;
-    this.router.get("/temperature", controller.retrieve);
-    this.router.post("/temperature", controller.create);
-    this.router.put("/temperature/:_id", controller.update);
-    this.router.get("/temperature/:_id", controller.findById);
-    this.router.delete("/temperature/:_id", controller.delete);
+    this.router.get("/data", controller.retrieve);
+    this.router.post("/data", controller.create);
+    this.router.put("/data/:_id", controller.update);
+    this.router.get("/data/:_id", controller.findById);
+    this.router.delete("/data/:_id", controller.delete);
     return this.router;
   }
 }

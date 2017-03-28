@@ -10,14 +10,15 @@ export class PhModel {
 
     constructor(phModel: IPhModel) {
         this._phModel = phModel;
+        this._phModel.type = 'ph';
     }
 
     get name() : string {
         return this._phModel.name;
     }
 
-    get ph() : number {
-        return this._phModel.ph;
+    get data() : number {
+        return this._phModel.data;
     }
 
     get createdAt() : Date {

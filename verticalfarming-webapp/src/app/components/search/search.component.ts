@@ -11,7 +11,7 @@ import {Ph} from "../../model/ph.model";
 @Component({
   selector: 'vf-search',
   templateUrl: './search.component.html',
-  providers: [FormControl, TemperatureService, PhService]
+  providers: [FormControl]
 })
 export class VFSearchComponent implements OnInit {
 
@@ -24,7 +24,7 @@ export class VFSearchComponent implements OnInit {
               private phService: PhService) {}
 
   ngOnInit() {
-    this.temperatureService.getTemperatures().then(temperatures => this.temperatures = temperatures);
-    this.phService.getPhs().then(phs => this.phs = phs);
+    this.temperatureService.getAll().then(temperatures => this.temperatures = temperatures);
+    this.phService.getAll().then(phs => this.phs = phs);
   }
 }

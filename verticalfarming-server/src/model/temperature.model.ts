@@ -10,14 +10,15 @@ export class TemperatureModel {
 
     constructor(temperatureModel: ITemperatureModel) {
         this._temperatureModel = temperatureModel;
+        this._temperatureModel.type = 'temperature'
     }
 
     get name() : string {
         return this._temperatureModel.name;
     }
 
-    get temperature() : number {
-        return this._temperatureModel.temperature;
+    get data() : number {
+        return this._temperatureModel.data;
     }
 
     get createdAt() : Date {

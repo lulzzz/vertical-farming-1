@@ -5,30 +5,29 @@ import { Headers, Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/toPromise';
 import { Temperature } from '../model/temperature.model'
-import {BaseService} from "./base/base.service";
+import {SensorService} from "./base/sensor.service";
+import {ServiceUtil} from "./util.service";
 
 @Injectable()
-export class TemperatureService extends BaseService {
+export class TemperatureService implements SensorService {
 
-  private temperatureUrl = "/temperature"
+  private temperatureUrl = "/temperature";
 
-  constructor(private http: Http) {
-    super();
-  }
+  constructor(private http: Http) {}
 
-  getTemperatures(): Promise<Temperature[]> {
-    return this.http.get(this.temperatureUrl)
+  getAll(): Promise<Temperature[]> {
+    return this.http.get(ServiceUtil.baseUrl + this.temperatureUrl)
       .toPromise()
       .then(response => response.json().data as Temperature[])
-      .catch(this.handleError);
+      .catch(ServiceUtil.handleError);
   }
 
-  getTemperaturesById(id: number): Promise<Temperature[]> {
-    const url = `${this.temperatureUrl}/${id}`;
+  getById(id: number): Promise<Temperature[]> {
+    const url = `${ServiceUtil.baseUrl}/${this.temperatureUrl}/${id}`;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as Temperature[])
-      .catch(this.handleError);
+      .catch(ServiceUtil.handleError);
   }
 
 }

@@ -3,5 +3,4 @@
  */
 import {ISensor} from "./base/base.sensor"
 export interface IPhModel extends ISensor {
-    ph: number;
 }

@@ -4,3 +4,5 @@
 export * from './search/search.component';
 export * from './sidenav/sidenav.component'
 export * from './toolbar/toolbar.component';
+export * from './chart/chart.component';
+

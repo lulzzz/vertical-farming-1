@@ -6,16 +6,14 @@ import { Http }       from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Temperature }           from '../../model/temperature.model';
-import {BaseService} from "../base/base.service";
 
 @Injectable()
-export class TemperatureSearchService extends BaseService {
+export class TemperatureSearchService  {
 
   constructor(private http: Http) {
-    super();
   }
 
-  private temperatureUrl = "/temperature"
+  private temperatureUrl = "/data";
   search(term: string): Observable<Temperature[]> {
     const url = `${this.temperatureUrl}/?name=${term}`;
     return this.http

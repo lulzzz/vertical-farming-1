@@ -4,30 +4,29 @@
 import { Headers, Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/toPromise';
-import {BaseService} from "./base/base.service";
 import {Ph} from "../model/ph.model";
+import {SensorService} from "./base/sensor.service";
+import {ServiceUtil} from "./util.service";
 
 @Injectable()
-export class PhService extends BaseService {
+export class PhService implements SensorService{
 
-  private phUrl ="/ph"
+  private phUrl ="/ph";
 
-  constructor(private http: Http) {
-    super();
-  }
+  constructor(private http: Http) {}
 
-  getPhs(): Promise<Ph[]> {
-    return this.http.get(this.phUrl)
+  getAll(): Promise<Ph[]> {
+    return this.http.get(ServiceUtil.baseUrl + this.phUrl)
       .toPromise()
       .then(response => response.json().data as Ph[])
-      .catch(this.handleError);
+      .catch(ServiceUtil.handleError);
   }
 
-  getPhsById(id: number): Promise<Ph[]> {
-    const url = `${this.phUrl}/${id}`;
+  getById(id: number): Promise<Ph[]> {
+    let url = `${ServiceUtil.baseUrl}/${this.phUrl}/${id}`;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as Ph[])
-      .catch(this.handleError);
+      .catch(ServiceUtil.handleError);
   }
 }

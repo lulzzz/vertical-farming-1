@@ -23,8 +23,8 @@ class TemperatureService implements ITemperatureService {
     update (_id: string, item: ITemperatureModel, callback: (error: any, result: any) => void) {
 
         this._TemperatureRepository.findById(_id, (err, res) => {
-            if(err) callback(err, res);
-
+            if(err)
+                callback(err, res);
             else
                 this._TemperatureRepository.update(res._id, item, callback);
 
@@ -42,6 +42,10 @@ class TemperatureService implements ITemperatureService {
     searchRequest(searchRequest: SearchRequest, callback: (error: any, result: any) => void)  {
         this._TemperatureRepository.searchRequest(searchRequest, callback);
     }
+
+    // stream() {
+    //     this._TemperatureRepository.streamData(callback);
+    // }
 
 
 }

@@ -7,10 +7,10 @@ import app = require('../src/index');
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-describe('GET api/temperature', () => {
+describe('GET api/data', () => {
 
   it('responds with JSON array', () => {
-    return chai.request(app).get('/temperature')
+    return chai.request(app).get('/data')
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
@@ -19,13 +19,13 @@ describe('GET api/temperature', () => {
   });
 
   it('should include temp1', () => {
-    return chai.request(app).get('/temperature')
+    return chai.request(app).get('/data')
       .then(res => {
         let temp1 = res.body.find(sensor => sensor.name === 'temp1');
         expect(temp1).to.exist;
         expect(temp1).to.have.all.keys([
           'name',
-          'temperature'
+          'data'
         ]);
       });
   });
