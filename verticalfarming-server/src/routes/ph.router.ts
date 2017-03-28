@@ -14,11 +14,11 @@ export class PhRouter {
 
     get routes () {
         let controller = this._phController;
-        router.get("/data", controller.retrieve);
-        router.post("/data", controller.create);
-        router.put("/data/:_id", controller.update);
-        router.get("/data/:_id", controller.findById);
-        router.delete("/data/:_id", controller.delete);
+        router.get("/ph", controller.retrieve);
+        router.post("/ph", controller.create);
+        router.put("/ph/:_id", controller.update);
+        router.get("/ph/:_id", controller.findById);
+        router.delete("/ph/:_id", controller.delete);
         return router;
     }
 }
