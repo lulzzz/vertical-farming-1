@@ -13,7 +13,7 @@ export class MiddlewaresBase {
     static get configuration () {
         let app = express();
         app.use(bodyParser.json());
-        // app.use(expressValidator());
+        app.use(expressValidator());
         app.use(MethodOverride.configuration());
         app.use(new BaseRouter().routes);
         return app;

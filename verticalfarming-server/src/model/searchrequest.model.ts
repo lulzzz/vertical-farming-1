@@ -9,7 +9,7 @@ export class SearchRequest {
     private _rack?: string;
     private _startDate?: Date;
     private _endDate?: Date;
-    private _useFullText: boolean
+    private _useFullText: boolean;
 
     constructor(req: Request) {
         this.validate(req);

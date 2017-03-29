@@ -8,9 +8,13 @@ class TemperatureSchema {
 
     static get schema() {
 
-        let schema =  mongoose.Schema({
+        const schema = mongoose.Schema({
             name: {
                 type: String,
+                required: true
+            },
+            data: {
+                type: Number,
                 required: true
             },
             room: {
@@ -21,9 +25,10 @@ class TemperatureSchema {
                 type: String,
                 required: true
             },
-            temperature: {
-                type: Number,
-                required: true
+
+            type: {
+                type: String,
+                required: false
             },
             createdAt: {
                 type: Date,
@@ -39,6 +44,7 @@ class TemperatureSchema {
                 this.createdAt = now;
             }
             this.modifiedAt = now;
+            this.type = 'temperature';
             next();
             return this;
         });

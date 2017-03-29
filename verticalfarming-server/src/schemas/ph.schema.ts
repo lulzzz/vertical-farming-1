@@ -17,6 +17,10 @@ class PhSchema {
                 type: String,
                 required: true
             },
+            data: {
+                type: Number,
+                required: true
+            },
             room: {
                 type: String,
                 required: true
@@ -25,9 +29,10 @@ class PhSchema {
                 type: String,
                 required: true
             },
-            ph: {
-                type: Number,
-                required: true
+
+            type: {
+                type: String,
+                required: false
             },
             createdAt: {
                 type: Date,
@@ -43,6 +48,7 @@ class PhSchema {
                 this.createdAt = now;
             }
             this.modifiedAt = now;
+            this.type = 'ph';
             next();
             return this;
         });
