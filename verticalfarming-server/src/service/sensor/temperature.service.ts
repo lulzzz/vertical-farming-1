@@ -1,16 +1,15 @@
-import TemperatureRepository = require("../repository/temperature.repository");
-import {ITemperatureService} from "./interfaces/temperature.service";
-import {ITemperatureModel} from "../model/interfaces/sensor/temperature.model";
-import TemperatureModel = require("../model/temperature.model");
-import {SearchRequest} from "../model/searchrequest.model";
+import {ITemperatureService} from "../interfaces/temperature.service";
+import {ITemperatureModel} from "../../model/interfaces/sensor/temperature.model";
+import TemperatureModel = require("../../model/sensor/temperature.model");
+import {SearchRequest} from "../../model/sensor/searchrequest.model";
+import { injectable } from 'inversify'
+import {TemperatureRepository} from "../../repository/temperature.repository";
 
 
-class TemperatureService implements ITemperatureService {
-    private _TemperatureRepository: TemperatureRepository;
+@injectable()
+export class TemperatureService implements ITemperatureService {
 
-    constructor () {
-        this._TemperatureRepository = new TemperatureRepository();
-    }
+    constructor (private _TemperatureRepository: TemperatureRepository) {}
 
     create (item: ITemperatureModel, callback: (error: any, result: any) => void) {
         this._TemperatureRepository.create(item, callback);
@@ -49,6 +48,3 @@ class TemperatureService implements ITemperatureService {
 
 
 }
-
-Object.seal(TemperatureService);
-export = TemperatureService

@@ -1,7 +1,7 @@
 /**
  * Created by alexanderlerma on 2/14/17.
  */
-import {IPhModel} from  "./interfaces/sensor/ph.model";
+import {IPhModel} from  "../interfaces/sensor/ph.model";
 
 //Ph Model
 export class PhModel {

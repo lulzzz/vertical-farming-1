@@ -41,10 +41,12 @@
     "foreman": "2.0.0",
     "gulp": "^3.9.1",
     "gulp-typescript": "3.1.5",
+    "inversify": "3.3.0",
     "method-override": "2.3.7",
     "mongoose": "^4.8.1",
     "morgan": "^1.7.0",
     "q": "^1.4.1",
+    "reflect-metadata": "0.1.10",
     "socket.io": "1.7.3",
     "typescript": "2.2.1"
   }

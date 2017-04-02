@@ -7,5 +7,4 @@ import {IWriteController} from  "../common/write.controller";
 import {IBaseService} from "../../../service/interfaces/base/base.service"
 export interface IBaseController<T extends IBaseService<Object>> extends IReadController, IWriteController {
 
-
 }

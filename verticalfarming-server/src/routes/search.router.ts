@@ -3,13 +3,14 @@
  */
 import {Router} from 'express';
 import {SearchController} from "../controller/search.controller";
+import {injectable} from "inversify";
+
+@injectable()
 export class SearchRouter {
     private router: Router;
-    private searchController: SearchController
 
-    constructor() {
+    constructor(private searchController: SearchController) {
        this.router = Router();
-       this.searchController = new SearchController();
     }
 
     get routes () {

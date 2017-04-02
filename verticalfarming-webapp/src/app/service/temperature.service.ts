@@ -2,13 +2,11 @@
  * Created by alexanderlerma on 2/27/17.
  */
 import { Headers, Http } from '@angular/http';
-import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/toPromise';
 import { Temperature } from '../model/temperature.model'
 import {SensorService} from "./base/sensor.service";
 import {ServiceUtil} from "./util.service";
 
-@Injectable()
 export class TemperatureService implements SensorService {
 
   private temperatureUrl = "/temperature";

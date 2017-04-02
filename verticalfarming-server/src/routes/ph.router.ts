@@ -3,16 +3,15 @@
  */
 import express = require("express");
 import {PhController} from "../controller/ph.controller";
+import {injectable} from "inversify";
 
-let router = express.Router();
+@injectable()
 export class PhRouter {
-    private _phController: PhController;
 
-    constructor() {
-        this._phController  = new PhController();
-    }
+    constructor(private _phController: PhController) {}
 
     get routes () {
+        let router = express.Router();
         let controller = this._phController;
         router.get("/ph", controller.retrieve);
         router.post("/ph", controller.create);

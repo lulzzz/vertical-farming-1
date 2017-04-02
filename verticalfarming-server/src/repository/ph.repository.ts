@@ -2,15 +2,14 @@
  * Created by alexanderlerma on 2/19/17.
  */
 import {IPhModel} from '../model/interfaces/sensor/ph.model';
-import {RepositoryBase} from './base/repository.base'
-import PhModel = require("../model/ph.model");
-import PhSchema = require("../schemas/ph.schema");
+import {BaseRepository} from './base/repository.base'
+import PhModel = require("../model/sensor/ph.model");
+import {injectable} from "inversify";
+import {PhSchema} from "../schemas/sensor/ph.schema";
 
-
-class PhRepository extends RepositoryBase<IPhModel> {
-    constructor () {
-        super(PhSchema);
+@injectable()
+export class PhRepository extends BaseRepository<IPhModel> {
+    constructor (private phSchema: PhSchema) {
+        super(phSchema.mongooseModel())
     }
 }
-Object.seal(PhRepository);
-export = PhRepository;

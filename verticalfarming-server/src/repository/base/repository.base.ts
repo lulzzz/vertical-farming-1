@@ -1,12 +1,12 @@
 import {IRead} from  '../interfaces/base/read';
 import {IWrite} from '../interfaces/base/write';
 import {Document, Model, Types} from 'mongoose';
-import {SearchRequest} from "../../model/searchrequest.model";
+import {SearchRequest} from "../../model/sensor/searchrequest.model";
 import {QueryCursor} from "mongoose";
 import {ISensor} from "../../model/interfaces/sensor/base/base.sensor";
 import {isUndefined} from "util";
 
-export class RepositoryBase<T extends Document> implements IRead<T>, IWrite<T> {
+export class BaseRepository<T extends Document> implements IRead<T>, IWrite<T> {
 
     protected _model: Model<Document>;
 
@@ -42,12 +42,12 @@ export class RepositoryBase<T extends Document> implements IRead<T>, IWrite<T> {
     }
 
     findByRoom(room: string, callback: (error: any, result: T) => void) {
-        this._model.find({room: name}, 'room', callback);
+        this._model.find({room: room}, 'room', callback);
 
     }
 
     findByRack(rack: string, callback: (error: any, result: T) => void) {
-        this._model.find({rack: name}, 'rack', callback);
+        this._model.find({rack: rack}, 'rack', callback);
     }
 
     streamData(callback:(error: any, result: any) => void) {

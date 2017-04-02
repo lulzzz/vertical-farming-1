@@ -1,16 +1,18 @@
-import DataAccess = require("../config/db/data-access");
-import {IPhModel} from "../model/interfaces/sensor/ph.model";
-/**
- * Created by alexanderlerma on 2/19/17.
- */
-
+import DataAccess = require("../../config/db/data-access");
+import {ITemperatureModel} from "../../model/interfaces/sensor/temperature.model";
+import {injectable} from "inversify";
 
 const mongoose = DataAccess.mongooseInstance;
 const mongooseConnection = DataAccess.mongooseConnection;
 
-class PhSchema {
+@injectable()
+export class TemperatureSchema {
 
-    static get schema() {
+    public mongooseModel() {
+        return mongooseConnection.model<ITemperatureModel>("temperature", this.schema(), "temperature");
+    }
+
+    private schema() {
 
         const schema = mongoose.Schema({
             name: {
@@ -48,7 +50,7 @@ class PhSchema {
                 this.createdAt = now;
             }
             this.modifiedAt = now;
-            this.type = 'ph';
+            this.type = 'temperature';
             next();
             return this;
         });
@@ -57,10 +59,6 @@ class PhSchema {
         return schema;
     }
 }
-
-let schema =  mongooseConnection.model<IPhModel>("ph", PhSchema.schema, "ph");
-export = schema;
-
 
 
 

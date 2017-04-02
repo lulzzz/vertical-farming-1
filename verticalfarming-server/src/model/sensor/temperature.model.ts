@@ -1,7 +1,7 @@
 /**
  * Created by alexanderlerma on 2/14/17.
  */
-import {ITemperatureModel} from  "./interfaces/sensor/temperature.model";
+import {ITemperatureModel} from  "../interfaces/sensor/temperature.model";
 
 //Temperature Model
 export class TemperatureModel {

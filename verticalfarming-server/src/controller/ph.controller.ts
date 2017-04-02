@@ -3,23 +3,21 @@
  */
 
 import express = require("express");
-import PhService = require("../service/ph.service");
 import {IPhModel} from "../model/interfaces/sensor/ph.model";
 import {IBaseController} from "./interfaces/base/base.controller";
+import {PhService} from "../service/sensor/ph.service";
+import {injectable} from "inversify";
 
 
+@injectable()
 export class PhController implements IBaseController<PhService> {
 
-    constructor() {
-
-    }
+    constructor(private phService: PhService) {}
 
     create(req: express.Request, res: express.Response): void {
         try {
-
             let Ph: IPhModel = <IPhModel>req.body;
-            let phService = new PhService();
-            phService.create(Ph, (error, result) => {
+            this.phService.create(Ph, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -34,8 +32,8 @@ export class PhController implements IBaseController<PhService> {
         try {
             let Ph: IPhModel = <IPhModel>req.body;
             let sensorId: string = req.params._id;
-            let phService = new PhService();
-            phService.update(sensorId, Ph, (error, result) => {
+            
+            this.phService.update(sensorId, Ph, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -50,8 +48,8 @@ export class PhController implements IBaseController<PhService> {
         try {
 
             let _id: string = req.params._id;
-            let phService = new PhService();
-            phService.delete(_id, (error, result) => {
+            
+            this.phService.delete(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -64,8 +62,8 @@ export class PhController implements IBaseController<PhService> {
     }
     retrieve(req: express.Request, res: express.Response): void {
         try {
-            let phService = new PhService();
-            phService.retrieve((error, result) => {
+            
+            this.phService.retrieve((error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });
@@ -80,8 +78,8 @@ export class PhController implements IBaseController<PhService> {
         try {
 
             let _id: string = req.params._id;
-            let phService = new PhService();
-            phService.findById(_id, (error, result) => {
+            
+            this.phService.findById(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });

@@ -1,12 +1,12 @@
 import {TemperatureController} from "../controller/temperature.controller";
 import {Router} from 'express';
+import {injectable} from "inversify";
 
+@injectable()
 export class TemperatureRouter {
-  private _temperatureController: TemperatureController;
   private router: Router;
 
-  constructor() {
-    this._temperatureController  = new TemperatureController();
+  constructor(private _temperatureController: TemperatureController) {
     this.router = Router();
   }
 

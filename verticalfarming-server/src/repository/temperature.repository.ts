@@ -1,13 +1,13 @@
 import {ITemperatureModel} from "../model/interfaces/sensor/temperature.model";
-import TemperatureModel = require("../model/temperature.model");
-import TemperatureSchema = require("../schemas/temperature.schema");
-import {RepositoryBase} from "./base/repository.base";
+import TemperatureModel = require("../model/sensor/temperature.model");
+import {BaseRepository} from "./base/repository.base";
+import {injectable, decorate} from "inversify";
+import {TemperatureSchema} from "../schemas/sensor/temperature.schema";
 
-
-class TemperatureRepository extends RepositoryBase<ITemperatureModel> {
-	constructor () {
-		super(TemperatureSchema);
+decorate(injectable(), BaseRepository);
+@injectable()
+export class TemperatureRepository extends BaseRepository<ITemperatureModel> {
+	constructor (private temperatureSchema: TemperatureSchema) {
+		super(temperatureSchema.mongooseModel());
 	}
 }
-Object.seal(TemperatureRepository);
-export = TemperatureRepository;

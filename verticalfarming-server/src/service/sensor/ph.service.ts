@@ -1,19 +1,17 @@
 /**
  * Created by alexanderlerma on 2/19/17.
  */
-import PhRepository = require("../repository/ph.repository");
-import {IPhService} from "./interfaces/ph.service";
-import {IPhModel} from "../model/interfaces/sensor/ph.model";
-import PhModel = require("../model/ph.model");
-import {SearchRequest} from "../model/searchrequest.model";
+import {IPhService} from "../interfaces/ph.service";
+import {IPhModel} from "../../model/interfaces/sensor/ph.model";
+import PhModel = require("../../model/sensor/ph.model");
+import {SearchRequest} from "../../model/sensor/searchrequest.model";
+import {injectable} from "inversify";
+import {PhRepository} from "../../repository/ph.repository";
 
+@injectable()
+export class PhService implements IPhService {
 
-class PhService implements IPhService {
-    private _PhRepository: PhRepository;
-
-    constructor () {
-        this._PhRepository = new PhRepository();
-    }
+    constructor (private _PhRepository: PhRepository) {}
 
     create (item: IPhModel, callback: (error: any, result: any) => void) {
         this._PhRepository.create(item, callback);
@@ -47,6 +45,3 @@ class PhService implements IPhService {
     }
 
 }
-
-Object.seal(PhService);
-export = PhService
