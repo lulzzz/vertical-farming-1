@@ -1,7 +1,6 @@
 import {IRead} from  '../interfaces/base/read';
 import {IWrite} from '../interfaces/base/write';
 import {Document, Model, Types} from 'mongoose';
-import {SearchRequest} from "../../model/sensor/searchrequest.model";
 import {QueryCursor} from "mongoose";
 import {ISensor} from "../../model/interfaces/sensor/base/base.sensor";
 import {isUndefined} from "util";
@@ -57,27 +56,13 @@ export class BaseRepository<T extends Document> implements IRead<T>, IWrite<T> {
         });
     }
 
-    searchRequest(searchRequest: SearchRequest, callback: (error: any, result: any) => void) {
-        if(searchRequest.useFullText) {
-            this.fullTextSearchRequest(searchRequest, callback);
-            return;
-        }
-
-        this._model
-            .find({}, callback)
-            .where('name').equals(isUndefined(searchRequest.name) ? {} : searchRequest.name)
-            .where('room').equals(isUndefined(searchRequest.room) ? {} : searchRequest.room)
-            .where('rack').equals(isUndefined(searchRequest.rack) ? {} : searchRequest.rack);
-
-        // this.processStream(cursor, callback);
-
+    searchRequest(query: string, callback: (error: any, result: any) => void) {
+        this.fullTextSearchRequest(query, callback);
     }
 
-    private fullTextSearchRequest(searchRequest: SearchRequest, callback: (error: any, result: any) => void) {
+    private fullTextSearchRequest(query: string, callback: (error: any, result: any) => void) {
         this._model
-            .find({$text: {$search: searchRequest.searchString}}, callback);
-
-        // this.processStream(cursor, callback);
+            .find({$text: {$search: query}}, callback);
     }
 
     private processStream(cursor: QueryCursor<ISensor>, callback: (error: any, result: any) => void) {

@@ -1,3 +1,7 @@
-<md-input-container>
-  <input type="text" mdInput [formControl]="formCtrl">
-</md-input-container>
+<div>
+  <h2>Search Component</h2>
+  <input (input)="term$.next($event.target.value)">
+  <ul>
+    <li *ngFor="let item of items">{{item}}</li>
+  </ul>
+</div>

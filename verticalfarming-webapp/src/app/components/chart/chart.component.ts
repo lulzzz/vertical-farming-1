@@ -2,7 +2,7 @@
  * Created by alexanderlerma on 3/27/17.
  */
 import {Component, OnInit} from '@angular/core';
-import {TemperatureService} from "../../service/temperature.service";
+import {TemperatureService} from "../../service/sensor/temperature.service";
 // import {SensorService} from "../../service/base/sensor.service";
 
 @Component({

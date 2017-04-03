@@ -8,6 +8,8 @@ import { VFSearchComponent, VFSidenavComponent, VFToolbarComponent, VFChartCompo
 import { AppComponent } from './app.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import 'hammerjs';
+import {SearchService} from "./service/search/search.service";
+import {PhService} from "./service/sensor/ph.service";
 
 
 @NgModule({
@@ -15,8 +17,8 @@ import 'hammerjs';
     AppComponent,
     VFSidenavComponent,
     VFToolbarComponent,
-    VFChartComponent
-    // VFSearchComponent
+    VFChartComponent,
+    VFSearchComponent
 
   ],
   imports: [
@@ -27,7 +29,7 @@ import 'hammerjs';
     MaterialModule,
     FlexLayoutModule,
   ],
-  providers: [],
+  providers: [SearchService, PhService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

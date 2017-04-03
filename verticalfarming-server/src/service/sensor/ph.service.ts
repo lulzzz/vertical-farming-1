@@ -4,7 +4,6 @@
 import {IPhService} from "../interfaces/ph.service";
 import {IPhModel} from "../../model/interfaces/sensor/ph.model";
 import PhModel = require("../../model/sensor/ph.model");
-import {SearchRequest} from "../../model/sensor/searchrequest.model";
 import {injectable} from "inversify";
 import {PhRepository} from "../../repository/ph.repository";
 

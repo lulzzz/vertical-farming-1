@@ -1,7 +1,6 @@
 import {ITemperatureService} from "../interfaces/temperature.service";
 import {ITemperatureModel} from "../../model/interfaces/sensor/temperature.model";
 import TemperatureModel = require("../../model/sensor/temperature.model");
-import {SearchRequest} from "../../model/sensor/searchrequest.model";
 import { injectable } from 'inversify'
 import {TemperatureRepository} from "../../repository/temperature.repository";
 
@@ -38,13 +37,7 @@ export class TemperatureService implements ITemperatureService {
         this._TemperatureRepository.findById(_id, callback);
     }
 
-    searchRequest(searchRequest: SearchRequest, callback: (error: any, result: any) => void)  {
-        this._TemperatureRepository.searchRequest(searchRequest, callback);
+    searchRequest(query: string, callback: (error: any, result: any) => void)  {
+        this._TemperatureRepository.searchRequest(query, callback);
     }
-
-    // stream() {
-    //     this._TemperatureRepository.streamData(callback);
-    // }
-
-
 }

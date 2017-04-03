@@ -1,4 +1,4 @@
-import {Sensor} from "../../model/base.model";
+import {Sensor} from "../../model/sensor/sensor.model";
 /**
  * Created by alexanderlerma on 3/27/17.
  */
