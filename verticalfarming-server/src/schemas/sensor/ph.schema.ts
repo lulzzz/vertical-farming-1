@@ -1,6 +1,7 @@
-import DataAccess = require("../../config/db/data-access");
-import {IPhModel} from "../../model/interfaces/sensor/ph.model";
+import DataAccess = require("../../config/db/data-access.config");
 import {injectable} from "inversify";
+import {BaseSchema} from "./interfaces/base.schema";
+import {ISensor} from "../../model/interfaces/sensor/base.sensor";
 /**
  * Created by alexanderlerma on 2/19/17.
  */
@@ -10,15 +11,13 @@ const mongoose = DataAccess.mongooseInstance;
 const mongooseConnection = DataAccess.mongooseConnection;
 
 @injectable()
-export class PhSchema {
+export class PhSchema implements BaseSchema {
 
     public mongooseModel() {
-        return mongooseConnection.model<IPhModel>("ph", this.schema(), "ph");
+        return mongooseConnection.model<ISensor>("ph", this.schema(), "ph");
     }
 
-
     private schema() {
-
         const schema = mongoose.Schema({
             name: {
                 type: String,
@@ -60,7 +59,7 @@ export class PhSchema {
             return this;
         });
 
-        schema.index({name :'text', room: 'text', rack: 'text'});
+        schema.index({name :'text', room: 'text', rack: 'text', type: 'text'});
         return schema;
     }
 }

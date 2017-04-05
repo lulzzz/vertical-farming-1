@@ -1,9 +1,6 @@
-import {IRead} from  '../interfaces/base/read';
-import {IWrite} from '../interfaces/base/write';
-import {Document, Model, Types} from 'mongoose';
-import {QueryCursor} from "mongoose";
-import {ISensor} from "../../model/interfaces/sensor/base/base.sensor";
-import {isUndefined} from "util";
+import {IRead} from "../interfaces/base/read";
+import {IWrite} from "../interfaces/base/write";
+import {Document, Model, Types} from "mongoose";
 
 export class BaseRepository<T extends Document> implements IRead<T>, IWrite<T> {
 
@@ -65,22 +62,6 @@ export class BaseRepository<T extends Document> implements IRead<T>, IWrite<T> {
             .find({$text: {$search: query}}, callback);
     }
 
-    private processStream(cursor: QueryCursor<ISensor>, callback: (error: any, result: any) => void) {
-        // for (let doc = cursor.next(); doc != null; doc = cursor.next()) {
-        //     callback("err", doc)
-        // }
-        //
-        // // cursor.on('data', (doc, error) => {
-        // //     callback(error, doc);
-        // // });
-        // //
-        // //
-        // //
-        // // cursor.on('close', (error) => {
-        // //     if (error) throw error;
-        // //     console.log('cursor closed!')
-        // // });
-    }
 
     private toObjectId (_id: string) : Types.ObjectId {
         return Types.ObjectId.createFromHexString(_id)

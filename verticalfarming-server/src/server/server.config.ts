@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as http from "http";
-import {MiddlewaresBase} from "./middleware/base/middleware.base";
-import {injectable} from "inversify";
+import {Middleware} from "../config/middleware/middleware.config";
+import {injectable, inject} from "inversify";
 
 const io = require('socket.io');
 
@@ -12,8 +12,10 @@ export class Server {
     private server: any;
     private io: any;
     private port;
+    private middleware: Middleware;
 
-    constructor(private middleware: MiddlewaresBase) {
+    constructor(@inject(Middleware) middleware: Middleware) {
+        this.middleware = middleware;
         this.createApp();
         this.config();
         this.createServer();
@@ -22,7 +24,6 @@ export class Server {
 
     private createApp(): void {
         this._app = express();
-
     }
 
     private createServer(): void {
@@ -31,7 +32,7 @@ export class Server {
 
     private config() {
         this.port = parseInt(process.env.PORT, 10) || 5000;
-        this._app.use(this.middleware.configuration);
+        this._app.use(this.middleware.configuration());
         this._app.set("port", this.port);
     }
 

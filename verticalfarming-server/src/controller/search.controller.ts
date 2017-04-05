@@ -1,22 +1,23 @@
 /**
  * Created by alexanderlerma on 3/5/17.
  */
-import PhService = require("../service/sensor/ph.service");
-import {Request, Response} from 'express';
+import {Request, Response} from "express";
 import {SearchService} from "../service/sensor/search.service";
-import {SearchRequest} from "../model/sensor/searchrequest.model";
-import {injectable} from "inversify";
+import {injectable, inject} from "inversify";
 
 @injectable()
 export class SearchController {
 
-    constructor(private searchService: SearchService) {}
+    private searchService: SearchService;
+
+    constructor(@inject(SearchService) searchService: SearchService) {
+        this.searchService = searchService;
+    }
 
     searchRequest (req: Request, res: Response): void {
         try {
-            const searchRequest: SearchRequest = new SearchRequest(req);
-            console.log(searchRequest);
-            this.searchService.searchRequest(searchRequest, (error, result) => {
+            const term: string = req.params.query;
+            this.searchService.search(term, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });

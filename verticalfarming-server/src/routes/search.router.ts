@@ -1,21 +1,23 @@
 /**
  * Created by alexanderlerma on 2/28/17.
  */
-import {Router} from 'express';
+import * as express from "express";
 import {SearchController} from "../controller/search.controller";
-import {injectable} from "inversify";
+import {injectable, inject} from "inversify";
 
 @injectable()
 export class SearchRouter {
-    private router: Router;
 
-    constructor(private searchController: SearchController) {
-       this.router = Router();
+    private searchController: SearchController;
+
+    constructor(@inject(SearchController) searchController: SearchController) {
+        this.searchController = searchController;
     }
 
-    get routes () {
-        this.router.get('/search', this.searchController.searchRequest);
-        return this.router;
+    get routes () : express.Router {
+        const router: express.Router = express.Router();
+        router.get('/search', this.searchController.searchRequest);
+        return router;
     }
 }
 

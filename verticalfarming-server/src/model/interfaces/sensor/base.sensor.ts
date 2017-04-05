@@ -1,9 +1,9 @@
 /**
  * Created by alexanderlerma on 2/21/17.
  */
-import mongoose = require("mongoose");
+import {Document} from "mongoose";
 
-export interface ISensor extends mongoose.Document {
+export interface ISensor extends Document {
     name: string;
     data: number;
     room: string;

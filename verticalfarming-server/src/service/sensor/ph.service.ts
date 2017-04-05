@@ -2,45 +2,48 @@
  * Created by alexanderlerma on 2/19/17.
  */
 import {IPhService} from "../interfaces/ph.service";
-import {IPhModel} from "../../model/interfaces/sensor/ph.model";
-import PhModel = require("../../model/sensor/ph.model");
-import {injectable} from "inversify";
-import {PhRepository} from "../../repository/ph.repository";
+import {injectable, inject} from "inversify";
+import {PhRepository} from "../../repository/sensor/ph.repository";
+import {ISensor} from "../../model/interfaces/sensor/base.sensor";
 
 @injectable()
 export class PhService implements IPhService {
 
-    constructor (private _PhRepository: PhRepository) {}
+    private phRepository: PhRepository;
 
-    create (item: IPhModel, callback: (error: any, result: any) => void) {
-        this._PhRepository.create(item, callback);
+    constructor (@inject(PhRepository) phRepository: PhRepository) {
+        this.phRepository = phRepository;
+    }
+
+    create (item: ISensor, callback: (error: any, result: any) => void) {
+        this.phRepository.create(item, callback);
     }
 
     retrieve (callback: (error: any, result: any) => void) {
-        this._PhRepository.retrieve(callback);
+        this.phRepository.retrieve(callback);
     }
 
-    update (_id: string, item: IPhModel, callback: (error: any, result: any) => void) {
+    update (_id: string, item: ISensor, callback: (error: any, result: any) => void) {
 
-        this._PhRepository.findById(_id, (err, res) => {
+        this.phRepository.findById(_id, (err, res) => {
             if(err) callback(err, res);
 
             else
-                this._PhRepository.update(res._id, item, callback);
+                this.phRepository.update(res._id, item, callback);
 
         });
     }
 
     delete (_id: string, callback:(error: any, result: any) => void) {
-        this._PhRepository.delete(_id , callback);
+        this.phRepository.delete(_id , callback);
     }
 
-    findById (_id: string, callback: (error: any, result: IPhModel) => void) {
-        this._PhRepository.findById(_id, callback);
+    findById (_id: string, callback: (error: any, result: ISensor) => void) {
+        this.phRepository.findById(_id, callback);
     }
 
-    searchRequest(searchRequest: SearchRequest, callback: (error: any, result: any) => void)  {
-        this._PhRepository.searchRequest(searchRequest, callback);
+    search(query: string, callback: (error: any, result: any) => void)  {
+        this.phRepository.searchRequest(query, callback);
     }
 
 }

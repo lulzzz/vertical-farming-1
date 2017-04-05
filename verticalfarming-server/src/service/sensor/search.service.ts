@@ -3,15 +3,22 @@
  */
 import {PhService} from "./ph.service";
 import {TemperatureService} from "./temperature.service";
-import {injectable} from "inversify";
+import {injectable, inject} from "inversify";
 
 @injectable()
 export class SearchService {
 
-    constructor(private phService: PhService, private temperatureService: TemperatureService) {}
+    private phService: PhService;
+    private temperatureService: TemperatureService;
 
-    searchRequest(query: string, callback: (error: any, result: any) => void) {
-        this.phService.searchRequest(query, callback);
-        this.temperatureService.searchRequest(query, callback);
+    constructor(@inject(PhService) phService: PhService,
+                @inject(TemperatureService) temperatureService: TemperatureService) {
+        this.phService = phService;
+        this.temperatureService = temperatureService;
+    }
+
+    search(query: string, callback: (error: any, result: any) => void) {
+        this.phService.search(query, callback);
+        this.temperatureService.search(query, callback);
     }
 }

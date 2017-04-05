@@ -1,3 +1,2 @@
-export * from './sensor/searchrequest.model';
-export * from './sensor/ph.model';
-export * from './sensor/temperature.model';
+export * from './interfaces/sensor/base.sensor'
+export * from './sensor/sensor.model';
