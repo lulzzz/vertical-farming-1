@@ -12,7 +12,7 @@ export class PhService implements IPhService {
 
     constructor (@inject(TYPES.PhRepository) private phRepository: PhRepository) {}
 
-    create (item: ISensor, callback: (error: any, result: any) => void) {
+    public create (item: ISensor, callback: (error: any, result: any) => void) {
         this.phRepository.create(item, callback);
     }
 
