@@ -2,12 +2,13 @@ import {BaseRepository} from "./base.repository";
 import {injectable, decorate, inject} from "inversify";
 import {TemperatureSchema} from "../../schemas/sensor/temperature.schema";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
-import {BaseSchema} from "../../schemas/sensor/interfaces/base.schema";
+import {BaseSchema} from "../../schemas/interfaces/base.schema";
+import {TYPES} from "../../config/constants/types";
 
 decorate(injectable(), BaseRepository);
 @injectable()
 export class TemperatureRepository extends BaseRepository<ISensor> {
-	constructor (@inject(TemperatureSchema) temperatureSchema: BaseSchema) {
+	constructor (@inject(TYPES.TemperatureSchema) temperatureSchema: TemperatureSchema) {
 		super(temperatureSchema.mongooseModel());
 	}
 }

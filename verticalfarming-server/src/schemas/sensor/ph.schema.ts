@@ -1,6 +1,6 @@
 import DataAccess = require("../../config/db/data-access.config");
 import {injectable} from "inversify";
-import {BaseSchema} from "./interfaces/base.schema";
+import {BaseSchema} from "../interfaces/base.schema";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
 /**
  * Created by alexanderlerma on 2/19/17.

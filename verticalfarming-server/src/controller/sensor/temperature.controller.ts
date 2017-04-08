@@ -1,32 +1,28 @@
 /**
  * Created by alexanderlerma on 2/15/17.
  */
-import {Request, Response} from "express";
-import {IBaseController} from "./interfaces/base/base.controller";
+import * as express from "express";
 import {isUndefined} from "util";
 import {injectable, inject} from "inversify";
-import {TemperatureService} from "../service/sensor/temperature.service";
-import {ISensor} from "../model/interfaces/sensor/base.sensor";
+import {TemperatureService} from "../../service/sensor/temperature.service";
+import {ISensor} from "../../model/interfaces/sensor/base.sensor";
+import {TYPES} from "../../config/constants/types";
+import {interfaces, Controller, Post, Get, Delete, Put} from "inversify-express-utils";
 
-
+@Controller('/temperature')
 @injectable()
-export class TemperatureController implements IBaseController<TemperatureService> {
+export class TemperatureController implements interfaces.Controller {
 
-    private temperatureService: TemperatureService;
+    constructor(@inject(TYPES.TemperatureService) private temperatureService: TemperatureService) {}
 
-    constructor(@inject(TemperatureService) temperatureService: TemperatureService) {
-        this.temperatureService = temperatureService;
-    }
-
-    create(req: Request, res: Response): void {
+    @Post("/")
+    create(req: express.Request, res: express.Response): void {
         try {
             const temperature: ISensor = isUndefined(req.body.body) ?
                 <ISensor>req.body : <ISensor>JSON.parse(req.body.body);
             this.temperatureService.create(temperature, (error, result) => {
                 if(error) res.send({"error": error});
                 else {
-                    const io = req.app.get('socketio');
-                    io.emit('data/success', result);
                     res.send({"success": result});
                 }
             });
@@ -37,7 +33,9 @@ export class TemperatureController implements IBaseController<TemperatureService
 
         }
     }
-    update(req: Request, res: Response): void {
+
+    @Put(":_id")
+    update(req: express.Request, res: express.Response): void {
         try {
             let Temperature: ISensor = <ISensor>req.body;
             let sensorId: string = req.params._id;
@@ -52,7 +50,9 @@ export class TemperatureController implements IBaseController<TemperatureService
 
         }
     }
-    delete(req: Request, res: Response): void {
+
+    @Delete("/:_id")
+    delete(req: express.Request, res: express.Response): void {
         try {
 
             let _id: string = req.params._id;
@@ -67,9 +67,10 @@ export class TemperatureController implements IBaseController<TemperatureService
 
         }
     }
-    retrieve(req: Request, res: Response): void {
-        console.log('hello');
-        console.log(req);
+
+    @Get("/")
+    retrieve(req: express.Request, res: express.Response): void {
+
         try {
 
             this.temperatureService.retrieve((error, result) => {
@@ -83,7 +84,9 @@ export class TemperatureController implements IBaseController<TemperatureService
 
         }
     }
-    findById(req: Request, res: Response): void {
+
+    @Get("/:_id")
+    findById(req: express.Request, res: express.Response): void {
         try {
 
             let _id: string = req.params._id;

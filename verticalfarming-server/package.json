@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@types/dotenv": "^2.0.20",
+    "@types/mongodb": "2.1.42",
     "body-parser": "^1.16.0",
     "debug": "^2.6.0",
     "dotenv": "^4.0.0",
@@ -43,6 +44,8 @@
     "gulp": "^3.9.1",
     "gulp-typescript": "3.1.5",
     "inversify": "3.3.0",
+    "inversify-express-utils": "3.5.1",
+    "inversify-logger-middleware": "3.0.0",
     "method-override": "2.3.7",
     "mongoose": "^4.8.1",
     "morgan": "^1.7.0",

@@ -1,27 +1,28 @@
 /**
  * Created by alexanderlerma on 2/19/17.
  */
-import {Request, Response} from "express";
-import {IBaseController} from "./interfaces/base/base.controller";
-import {PhService} from "../service/sensor/ph.service";
+import * as express from "express";
+import {PhService} from "../../service/sensor/ph.service";
 import {injectable, inject} from "inversify";
-import {ISensor} from "../model/interfaces/sensor/base.sensor";
+import {ISensor} from "../../model/interfaces/sensor/base.sensor";
+import {TYPES} from "../../config/constants/types";
+import {Post, Controller, Put, Get, Delete, interfaces} from "inversify-express-utils";
 
 
+@Controller('/ph')
 @injectable()
-export class PhController implements IBaseController<PhService> {
+export class PhController implements interfaces.Controller {
 
-    private phService: PhService;
 
-    constructor(@inject(PhService) phService: PhService) {
-        this.phService = phService;
-    }
+    constructor(@inject(TYPES.PhService) private phService: PhService) {}
 
-    create(req: Request, res: Response): void {
+    @Post('/')
+    create(req: express.Request, res: express.Response): void {
         try {
             let Ph: ISensor = <ISensor>req.body;
             this.phService.create(Ph, (error, result) => {
-                if (error) res.send({"error": "error"});
+                if (error)
+                    return res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
         }
@@ -32,13 +33,14 @@ export class PhController implements IBaseController<PhService> {
         }
     }
 
-    update(req: Request, res: Response): void {
+    @Put('/:_id')
+    update(req: express.Request, res: express.Response): void {
         try {
             let Ph: ISensor = <ISensor>req.body;
             let sensorId: string = req.params._id;
 
             this.phService.update(sensorId, Ph, (error, result) => {
-                if (error) res.send({"error": "error"});
+                if (error) return res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
         }
@@ -49,13 +51,14 @@ export class PhController implements IBaseController<PhService> {
         }
     }
 
-    delete(req: Request, res: Response): void {
+    @Delete('/:_id')
+    delete(req: express.Request, res: express.Response): void {
         try {
 
             let _id: string = req.params._id;
 
             this.phService.delete(_id, (error, result) => {
-                if (error) res.send({"error": "error"});
+                if (error) return res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
         }
@@ -66,11 +69,12 @@ export class PhController implements IBaseController<PhService> {
         }
     }
 
-    retrieve(req: Request, res: Response): void {
+    @Get("/")
+    retrieve(req: express.Request, res: express.Response): void {
         try {
 
             this.phService.retrieve((error, result) => {
-                if (error) res.send({"error": "error"});
+                if (error) return res.send({"error": "error"});
                 else res.send(result);
             });
         }
@@ -81,7 +85,9 @@ export class PhController implements IBaseController<PhService> {
         }
     }
 
-    findById(req: Request, res: Response): void {
+
+    @Get(":_id")
+    findById(req: express.Request, res: express.Response): void {
         try {
 
             let _id: string = req.params._id;

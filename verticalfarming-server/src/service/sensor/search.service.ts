@@ -1,24 +1,24 @@
 /**
  * Created by alexanderlerma on 3/5/17.
  */
-import {PhService} from "./ph.service";
-import {TemperatureService} from "./temperature.service";
 import {injectable, inject} from "inversify";
+import {ISearchService} from "../interfaces/search.service";
+import {PhRepository} from "../../repository/sensor/ph.repository";
+import {TemperatureRepository} from "../../repository/sensor/temperature.repository";
+import {TYPES} from "../../config/constants/types";
 
 @injectable()
-export class SearchService {
+export class SearchService implements ISearchService {
 
-    private phService: PhService;
-    private temperatureService: TemperatureService;
-
-    constructor(@inject(PhService) phService: PhService,
-                @inject(TemperatureService) temperatureService: TemperatureService) {
-        this.phService = phService;
-        this.temperatureService = temperatureService;
+    constructor(@inject(TYPES.PhRepository) private phRepository: PhRepository,
+                @inject(TYPES.TemperatureRepository) private temperatureRepository: TemperatureRepository) {
+        this.phRepository = phRepository;
+        this.temperatureRepository = temperatureRepository;
     }
 
     search(query: string, callback: (error: any, result: any) => void) {
-        this.phService.search(query, callback);
-        this.temperatureService.search(query, callback);
+        let found = [];
+        this.phRepository.search(query, callback);
+        this.temperatureRepository.search(query, callback);
     }
 }

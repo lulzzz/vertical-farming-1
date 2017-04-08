@@ -1,9 +1,9 @@
 /**
  * Created by alexanderlerma on 2/21/17.
  */
-import {Document} from "mongoose";
+import * as mongoose from "mongoose";
 
-export interface ISensor extends Document {
+export interface ISensor extends mongoose.Document {
     name: string;
     data: number;
     room: string;

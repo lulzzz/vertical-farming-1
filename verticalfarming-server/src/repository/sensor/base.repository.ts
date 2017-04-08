@@ -12,7 +12,6 @@ export class BaseRepository<T extends Document> implements IRead<T>, IWrite<T> {
 
     create (item: T, callback: (error: any, result: any) => void) {
         this._model.create(item, callback);
-
     }
 
     retrieve (callback: (error: any, result: any) => void) {
@@ -26,7 +25,6 @@ export class BaseRepository<T extends Document> implements IRead<T>, IWrite<T> {
 
     delete (_id: string, callback:(error: any, result: any) => void) {
         this._model.remove({_id: this.toObjectId(_id)}, (err) => callback(err, null));
-
     }
 
     findById (_id: string, callback: (error: any, result: T) => void) {
@@ -46,22 +44,10 @@ export class BaseRepository<T extends Document> implements IRead<T>, IWrite<T> {
         this._model.find({rack: rack}, 'rack', callback);
     }
 
-    streamData(callback:(error: any, result: any) => void) {
-        let stream = this._model.find({}).stream();
-        stream.on('data', (doc) => {
-            callback(undefined, JSON.stringify(doc));
-        });
-    }
 
-    searchRequest(query: string, callback: (error: any, result: any) => void) {
-        this.fullTextSearchRequest(query, callback);
+    search(query: string, callback: (error: any, result: any) => void) {
+        this._model.find({$text: {$search: query}}, callback);
     }
-
-    private fullTextSearchRequest(query: string, callback: (error: any, result: any) => void) {
-        this._model
-            .find({$text: {$search: query}}, callback);
-    }
-
 
     private toObjectId (_id: string) : Types.ObjectId {
         return Types.ObjectId.createFromHexString(_id)

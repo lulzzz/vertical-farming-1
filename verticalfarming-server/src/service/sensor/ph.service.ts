@@ -5,15 +5,12 @@ import {IPhService} from "../interfaces/ph.service";
 import {injectable, inject} from "inversify";
 import {PhRepository} from "../../repository/sensor/ph.repository";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
+import {TYPES} from "../../config/constants/types";
 
 @injectable()
 export class PhService implements IPhService {
 
-    private phRepository: PhRepository;
-
-    constructor (@inject(PhRepository) phRepository: PhRepository) {
-        this.phRepository = phRepository;
-    }
+    constructor (@inject(TYPES.PhRepository) private phRepository: PhRepository) {}
 
     create (item: ISensor, callback: (error: any, result: any) => void) {
         this.phRepository.create(item, callback);
@@ -43,7 +40,7 @@ export class PhService implements IPhService {
     }
 
     search(query: string, callback: (error: any, result: any) => void)  {
-        this.phRepository.searchRequest(query, callback);
+        this.phRepository.search(query, callback);
     }
 
 }

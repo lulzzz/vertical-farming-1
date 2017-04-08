@@ -4,13 +4,13 @@
 import {BaseRepository} from "./base.repository";
 import {injectable, inject} from "inversify";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
-import {BaseSchema} from "../../schemas/sensor/interfaces/base.schema";
+import {TYPES} from "../../config/constants/types";
 import {PhSchema} from "../../schemas/sensor/ph.schema";
 
 @injectable()
 export class PhRepository extends BaseRepository<ISensor> {
 
-    constructor (@inject(PhSchema) phSchema: BaseSchema) {
+    constructor (@inject(TYPES.PhSchema) phSchema: PhSchema) {
         super(phSchema.mongooseModel())
     }
 }

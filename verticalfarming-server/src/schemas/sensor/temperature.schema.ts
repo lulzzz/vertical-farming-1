@@ -1,7 +1,8 @@
 import DataAccess = require("../../config/db/data-access.config");
-import {injectable} from "inversify";
-import {BaseSchema} from "./interfaces/base.schema";
+import {injectable, decorate} from "inversify";
+import {BaseSchema} from "../interfaces/base.schema";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
+import {BaseRepository} from "../../repository/sensor/base.repository";
 
 const mongoose = DataAccess.mongooseInstance;
 const mongooseConnection = DataAccess.mongooseConnection;
