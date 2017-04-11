@@ -12,35 +12,29 @@ export class PhService implements IPhService {
 
     constructor (@inject(TYPES.PhRepository) private phRepository: PhRepository) {}
 
-    public create (item: ISensor, callback: (error: any, result: any) => void) {
-        this.phRepository.create(item, callback);
+    public create (item: ISensor) {
+        return this.phRepository.create(item);
     }
 
-    retrieve (callback: (error: any, result: any) => void) {
-        this.phRepository.retrieve(callback);
+    public retrieve () {
+        return this.phRepository.retrieve();
     }
 
-    update (_id: string, item: ISensor, callback: (error: any, result: any) => void) {
+    public update (_id: string, item: ISensor) {
 
-        this.phRepository.findById(_id, (err, res) => {
-            if(err) callback(err, res);
-
-            else
-                this.phRepository.update(res._id, item, callback);
-
-        });
+        return this.phRepository.findById(_id);
     }
 
-    delete (_id: string, callback:(error: any, result: any) => void) {
-        this.phRepository.delete(_id , callback);
+    public delete (_id: string) {
+        return this.phRepository.delete(_id);
     }
 
-    findById (_id: string, callback: (error: any, result: ISensor) => void) {
-        this.phRepository.findById(_id, callback);
+    public findById (_id: string) {
+        return this.phRepository.findById(_id);
     }
 
-    search(query: string, callback: (error: any, result: any) => void)  {
-        this.phRepository.search(query, callback);
+    public search(query: string)  {
+        return this.phRepository.search(query);
     }
 
 }

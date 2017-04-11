@@ -10,34 +10,27 @@ export class TemperatureService implements ITemperatureService {
 
     constructor (@inject(TYPES.TemperatureRepository) private temperatureRepository: TemperatureRepository) {}
 
-    create (item: ISensor, callback: (error: any, result: any) => void) {
-        this.temperatureRepository.create(item, callback);
+    public create (item: ISensor) : Promise<any> {
+        return this.temperatureRepository.create(item);
     }
 
-    retrieve (callback: (error: any, result: any) => void) {
-        this.temperatureRepository.retrieve(callback);
+    public retrieve () : Promise<any> {
+        return this.temperatureRepository.retrieve();
     }
 
-    update (_id: string, item: ISensor, callback: (error: any, result: any) => void) {
-
-        this.temperatureRepository.findById(_id, (err, res) => {
-            if(err)
-                callback(err, res);
-            else
-                this.temperatureRepository.update(res._id, item, callback);
-
-        });
+    public update (_id: string, sensor: ISensor) : Promise<any> {
+        return this.temperatureRepository.findById(_id);
     }
 
-    delete (_id: string, callback:(error: any, result: any) => void) {
-        this.temperatureRepository.delete(_id , callback);
+    public delete (_id: string) : Promise<any> {
+        return this.temperatureRepository.delete(_id);
     }
 
-    findById (_id: string, callback: (error: any, result: ISensor) => void) {
-        this.temperatureRepository.findById(_id, callback);
+    public findById (_id: string) : Promise<any> {
+        return this.temperatureRepository.findById(_id);
     }
 
-    search(query: string, callback: (error: any, result: any) => void)  {
-        this.temperatureRepository.search(query, callback);
+    public search(query: string) : Promise<any> {
+        return this.temperatureRepository.search(query);
     }
 }

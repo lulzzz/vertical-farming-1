@@ -2,7 +2,6 @@
  * Created by alexanderlerma on 2/15/17.
  */
 import * as mongoose from "mongoose";
-import {Connection} from "mongoose";
 import {Constants} from "../constants/constants";
 
 class DataAccess {
@@ -16,6 +15,7 @@ class DataAccess {
     static connect (): mongoose.Connection {
         if(this.mongooseInstance) return this.mongooseInstance;
 
+        (<any>mongoose).Promise = global.Promise;
         this.mongooseConnection = mongoose.connection;
         this.mongooseConnection.once("open", () => {
             console.log("Connected to MongoDB.");

@@ -15,18 +15,17 @@ export class SearchController implements interfaces.Controller {
     constructor(@inject(TYPES.SearchService) private searchService: SearchService) {}
 
     @Get("/")
-    search (req: express.Request, res: express.Response) : void {
-        try {
+    public search (req: express.Request, res: express.Response) : Promise<any>{
+        return new Promise((resolve, reject) => {
             const term = req.query.term;
-            this.searchService.search(term, (error, result) => {
-                if(error) res.send({"error": "error"});
-                else res.send(result);
+            this.searchService.search(term).then(result => {
+                res.send(result);
+                resolve(result);
+            }).catch((error) => {
+                res.send({"error": "error with search term: " + term});
+                reject(error);
             });
-        }
-        catch (e)  {
-            console.log(e);
-            res.send({"error": "error in your request"});
-        }
+        });
     }
 }
 

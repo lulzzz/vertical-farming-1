@@ -15,90 +15,106 @@ export class TemperatureController implements interfaces.Controller {
 
     constructor(@inject(TYPES.TemperatureService) private temperatureService: TemperatureService) {}
 
-    @Post("/")
-    create(req: express.Request, res: express.Response): void {
-        try {
-            const temperature: ISensor = isUndefined(req.body.body) ?
-                <ISensor>req.body : <ISensor>JSON.parse(req.body.body);
-            this.temperatureService.create(temperature, (error, result) => {
-                if(error) res.send({"error": error});
-                else {
+    @Post('/')
+    public create(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let temperature : ISensor;
+            try {
+                temperature = <ISensor>req.body;
+            }
+            catch (e) {
+                res.send({"error": "error in your request" + temperature});
+                reject(e)
+            }
+
+            this.temperatureService.create(temperature)
+                .then(result => {
+                    res.send({"success": "created object\n" + temperature});
+                    resolve(result);
+                })
+                .catch((error) =>  {
+                    res.send({"error": error});
+                    reject(error);
+                });
+        });
+    }
+
+    @Put('/:_id')
+    public update(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let temperature: ISensor;
+            let sensorId: string;
+            try {
+                temperature = <ISensor>req.body;
+                sensorId = req.params._id;
+            } catch (e) {
+                res.send({"error": "error in your request" + temperature});
+                reject(e)
+            }
+
+            this.temperatureService.update(sensorId, temperature)
+                .then((result) => {
+                    res.send({"error": "error"});
+                    resolve(result);
+                })
+                .catch((error) =>  {
+                    res.send({"error": error});
+                    reject(error);
+                });
+        });
+    }
+
+    @Delete('/:_id')
+    public delete(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let _id: string;
+            try {
+                _id = req.params._id;
+            } catch(e) {
+                res.send({"error": "error"});
+                reject(e);
+            }
+            this.temperatureService.delete(_id)
+                .then(result => {
                     res.send({"success": result});
-                }
-            });
-        }
-        catch (e)  {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
-    }
-
-    @Put(":_id")
-    update(req: express.Request, res: express.Response): void {
-        try {
-            let Temperature: ISensor = <ISensor>req.body;
-            let sensorId: string = req.params._id;
-            this.temperatureService.update(sensorId, Temperature, (error, result) => {
-                if(error) res.send({"error": "error"});
-                else res.send({"success": "success"});
-            });
-        }
-        catch (e)  {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
-    }
-
-    @Delete("/:_id")
-    delete(req: express.Request, res: express.Response): void {
-        try {
-
-            let _id: string = req.params._id;
-            this.temperatureService.delete(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
-                else res.send({"success": "success"});
-            });
-        }
-        catch (e)  {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
+                    resolve(result);
+                })
+                .catch(error => {
+                    res.send({"error": "error"});
+                    reject(error);
+                });
+        });
     }
 
     @Get("/")
-    retrieve(req: express.Request, res: express.Response): void {
-
-        try {
-
-            this.temperatureService.retrieve((error, result) => {
-                if(error) res.send({"error": "error"});
-                else res.send(result);
-            });
-        }
-        catch (e)  {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
+    public retrieve(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.temperatureService.retrieve()
+                .then(result => {
+                    res.send(result);
+                    resolve(result);
+                })
+                .catch((error) => {
+                    res.send({"error": error});
+                    reject(error);
+                });
+        });
     }
 
-    @Get("/:_id")
-    findById(req: express.Request, res: express.Response): void {
-        try {
 
+    @Get(":_id")
+    public findById(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
             let _id: string = req.params._id;
-            this.temperatureService.findById(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
-                else res.send(result);
-            });
-        }
-        catch (e)  {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
+            this.temperatureService.findById(_id)
+                .then(result => {
+                    res.send(result);
+                    resolve(result);
+                })
+                .catch((error) => {
+                    res.send({"error": "error"});
+                    reject(error);
+                });
+        });
     }
 }

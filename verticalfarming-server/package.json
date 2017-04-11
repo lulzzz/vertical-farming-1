@@ -47,7 +47,7 @@
     "inversify-express-utils": "3.5.1",
     "inversify-logger-middleware": "3.0.0",
     "method-override": "2.3.7",
-    "mongoose": "^4.8.1",
+    "mongoose": "4.9.4",
     "morgan": "1.8.1",
     "q": "^1.4.1",
     "reflect-metadata": "0.1.10",

@@ -17,17 +17,11 @@ export class SearchService implements ISearchService {
         this.temperatureRepository = temperatureRepository;
     }
 
-    search(query: string, callback: (error: any, result: any) => void) {
-        // let found = [{word:'hello'}];
-        // const cb = (err, result) => {
-        //     if (err) {
-        //         return;
-        //     } else {
-        //         found.push(result);
-        //     }
-        // };
-        // this.phRepository.search(query, cb);
-        this.temperatureRepository.search(query, callback);
-        // callback(null, found);
+    public search(query: string) : Promise <any> {
+        console.log('query is' + query);
+        return Promise.all([this.temperatureRepository.search(query), this.phRepository.search(query)])
+            .then(results => {
+                return [].concat.apply([], results);
+            });
     }
 }

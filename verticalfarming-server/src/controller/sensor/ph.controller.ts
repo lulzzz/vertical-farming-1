@@ -7,6 +7,7 @@ import {injectable, inject} from "inversify";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
 import {TYPES} from "../../config/constants/types";
 import {Post, Controller, Put, Get, Delete, interfaces} from "inversify-express-utils";
+import {resolve} from "inversify/dts/resolution/resolver";
 
 
 @Controller('/ph')
@@ -17,90 +18,105 @@ export class PhController implements interfaces.Controller {
     constructor(@inject(TYPES.PhService) private phService: PhService) {}
 
     @Post('/')
-    create(req: express.Request, res: express.Response): void {
-        try {
-            let Ph: ISensor = <ISensor>req.body;
-            this.phService.create(Ph, (error, result) => {
-                if (error)
-                    return res.send({"error": "error"});
-                else res.send({"success": "success"});
-            });
-        }
-        catch (e) {
-            console.log(e);
-            res.send({"error": "error in your request"});
+    public create(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let ph : ISensor;
+            try {
+                ph = <ISensor>req.body;
+            }
+            catch (e) {
+                res.send({"error": "error in your request" + ph});
+                reject(e)
+            }
 
-        }
+            this.phService.create(ph)
+                .then(result => {
+                    res.send({"success": "created object\n" + ph})
+                    resolve(result);
+                })
+                .catch((error) =>  {
+                    res.send({"error": error});
+                    reject(error);
+                });
+        });
     }
 
     @Put('/:_id')
-    update(req: express.Request, res: express.Response): void {
-        try {
-            let Ph: ISensor = <ISensor>req.body;
-            let sensorId: string = req.params._id;
+    public update(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let ph: ISensor;
+            let sensorId: string;
+            try {
+                ph = <ISensor>req.body;
+                sensorId = req.params._id;
+            } catch (e) {
+                res.send({"error": "error in your request" + ph});
+                reject(e)
+            }
 
-            this.phService.update(sensorId, Ph, (error, result) => {
-                if (error) return res.send({"error": "error"});
-                else res.send({"success": "success"});
+            this.phService.update(sensorId, ph)
+                .then((result) => {
+                    res.send({"error": "error"});
+                    resolve(result);
+                })
+                .catch((error) =>  {
+                    res.send({"error": error});
+                    reject(error);
+                });
             });
-        }
-        catch (e) {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
     }
 
     @Delete('/:_id')
-    delete(req: express.Request, res: express.Response): void {
-        try {
-
-            let _id: string = req.params._id;
-
-            this.phService.delete(_id, (error, result) => {
-                if (error) return res.send({"error": "error"});
-                else res.send({"success": "success"});
-            });
-        }
-        catch (e) {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
+    public delete(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let _id: string;
+            try {
+                _id = req.params._id;
+            } catch(e) {
+                res.send({"error": "error"});
+                reject(e);
+            }
+            this.phService.delete(_id)
+                .then(result => {
+                    res.send({"success": result});
+                    resolve(result);
+                })
+                .catch(error => {
+                    res.send({"error": "error"});
+                    reject(error);
+                });
+        });
     }
 
     @Get("/")
-    retrieve(req: express.Request, res: express.Response): void {
-        try {
-
-            this.phService.retrieve((error, result) => {
-                if (error) return res.send({"error": "error"});
-                else res.send(result);
-            });
-        }
-        catch (e) {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
+    public retrieve(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.phService.retrieve()
+                .then(result => {
+                    res.send(result);
+                    resolve(result);
+                })
+                .catch((error) => {
+                    res.send({"error": error});
+                    reject(error);
+                });
+        });
     }
 
 
     @Get(":_id")
-    findById(req: express.Request, res: express.Response): void {
-        try {
-
+    public findById(req: express.Request, res: express.Response): Promise<any> {
+        return new Promise((resolve, reject) => {
             let _id: string = req.params._id;
-
-            this.phService.findById(_id, (error, result) => {
-                if (error) res.send({"error": "error"});
-                else res.send(result);
+            this.phService.findById(_id)
+                .then(result => {
+                    res.send(result);
+                    resolve(result);
+                })
+                .catch((error) => {
+                    res.send({"error": "error"});
+                    reject(error);
             });
-        }
-        catch (e) {
-            console.log(e);
-            res.send({"error": "error in your request"});
-
-        }
+        });
     }
 }
