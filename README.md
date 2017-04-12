@@ -1,11 +1,11 @@
-#Vertical Farming
+# Vertical Farming
 
-###Server
+### Server
 
-#####What is it?
+##### What is it?
 A RESTful webserver that allows the vertical farm to store sensor data such as temperatures and ph levels. 
 
-#####What this means?
+##### What this means?
 The server can accept data from ph and temperature sensors. The data can be sent from any internet of things (IOT)
 device with the ability of posting (POST) data.
 
