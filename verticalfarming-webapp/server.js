@@ -17,9 +17,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Catch all other routes and return the index file
-app.get('*', (req, res) => {
+
+app.get('/' ,(req, req) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
+
+
 
 /**
  * Get port from environment and store in Express.
