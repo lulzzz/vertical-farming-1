@@ -1,10 +1,14 @@
-<md-toolbar color="primary">
-  <!--<button class="app-icon-button" (click)="{{sidenav.toggle()}}">-->
-    <!--<i class="material-icons app-toolbar-menu">menu</i>-->
-  <!--</button>-->
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Vertical Farming</a>
 
-  <span>Vertical Farming</span>
-
-  <span class="fill-remaining-space"></span>
-
-</md-toolbar>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <vf-search></vf-search>
+    </form>
+  </div>
+</nav>

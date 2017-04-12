@@ -5,6 +5,7 @@ import {Component, OnInit} from "@angular/core";
 import {SearchService} from "../../service/search/search.service";
 import {Subject} from "rxjs";
 import {Sensor} from "../../model/sensor/sensor.model";
+import {ISensor} from "../../model/sensor/sensor.interface";
 
 @Component({
   selector: 'vf-search',
@@ -13,13 +14,12 @@ import {Sensor} from "../../model/sensor/sensor.model";
 })
 export class VFSearchComponent implements OnInit {
 
-  items: Array<Sensor>;
+  items: Array<string>;
   term$ = new Subject<string>();
 
   constructor(private service: SearchService) {}
 
   ngOnInit() {
-    this.service.search(this.term$).subscribe(results => this.items = results);
+    this.service.search(this.term$).subscribe(results => this.items = results.map(x => JSON.stringify(x)));
   }
-
 }

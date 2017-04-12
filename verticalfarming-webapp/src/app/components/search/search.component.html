@@ -1,7 +1,6 @@
-<div>
-  <h2>Search Component</h2>
-  <input (input)="term$.next($event.target.value)">
-  <ul>
-    <li *ngFor="let item of items">{{item}}</li>
-  </ul>
+<div class="input-group">
+  <input (input)="term$.next($event.target.value)" class="form-control" placeholder="Search for sensors" aria-describedby="search-bar">
 </div>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let item of items">{{item}}</li>
+</ul>

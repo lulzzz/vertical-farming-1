@@ -17,7 +17,7 @@ export class SearchController implements interfaces.Controller {
     @Get("/")
     public search (req: express.Request, res: express.Response) : Promise<any>{
         return new Promise((resolve, reject) => {
-            const term = req.query.term;
+            const term = req.query.query;
             this.searchService.search(term).then(result => {
                 res.send(result);
                 resolve(result);

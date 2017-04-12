@@ -46,7 +46,14 @@ export class BaseRepository<T extends mongoose.Document> implements IRead<T>, IW
 
 
     public search(query: string) : Promise<any> {
-        return this._model.find({$text: {$search: query}}).exec();
+        return this._model
+            .find({$or: [
+                {name: {$regex: query, $options: 'i'}},
+                {room: {$regex: query, $options: 'i'}},
+                {rack: {$regex: query, $options: 'i'}},
+                {type: {$regex: query, $options: 'i'}}]})
+            .exec();
+
     }
 
     private toObjectId (_id: string) : mongoose.Types.ObjectId {
