@@ -20,7 +20,7 @@ export class HumidityController implements interfaces.Controller {
     public create(req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(req.body);
-            let humidity : ISensor = (req.body.body ? req.body.body : req.body) as ISensor;
+            let humidity : ISensor = (req.body.body ? JSON.parse(req.body.body) : req.body);
             this.humidityService.create(humidity)
                 .then(result => {
                     res.send({"success": "created object\n" + JSON.stringify(humidity)});

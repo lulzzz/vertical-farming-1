@@ -20,7 +20,7 @@ export class PhController implements interfaces.Controller {
     @Post('/')
     public create(req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let ph : ISensor = (req.body.body ? req.body.body : req.body) as ISensor;
+            let ph : ISensor = (req.body.body ? JSON.parse(req.body.body) : req.body);
             this.phService.create(ph)
                 .then(result => {
                     res.send({"success": "created object\n" + ph});
