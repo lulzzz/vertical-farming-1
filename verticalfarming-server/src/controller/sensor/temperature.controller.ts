@@ -2,12 +2,11 @@
  * Created by alexanderlerma on 2/15/17.
  */
 import * as express from "express";
-import {isUndefined} from "util";
 import {injectable, inject} from "inversify";
-import {TemperatureService} from "../../service/sensor/temperature.service";
-import {ISensor} from "../../model/interfaces/sensor/base.sensor";
-import {TYPES} from "../../config/constants/types";
-import {interfaces, Controller, Post, Get, Delete, Put} from "inversify-express-utils";
+import {TemperatureService} from "../../service";
+import {ISensor} from "../../model";
+import {TYPES} from "../../config";
+import {interfaces, Controller, Post, Get, Delete, Put, RequestParam} from "inversify-express-utils";
 
 @Controller('/temperature')
 @injectable()
@@ -32,19 +31,10 @@ export class TemperatureController implements interfaces.Controller {
     }
 
     @Put('/:_id')
-    public update(req: express.Request, res: express.Response): Promise<any> {
+    public update(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let temperature: ISensor;
-            let sensorId: string;
-            try {
-                temperature = <ISensor>req.body;
-                sensorId = req.params._id;
-            } catch (e) {
-                res.send({"error": "error in your request" + temperature});
-                reject(e)
-            }
-
-            this.temperatureService.update(sensorId, temperature)
+            const temperature : ISensor = (req.body.body ? JSON.parse(req.body.body) : req.body);
+            this.temperatureService.update(id, temperature)
                 .then((result) => {
                     res.send({"error": "error"});
                     resolve(result);
@@ -57,16 +47,9 @@ export class TemperatureController implements interfaces.Controller {
     }
 
     @Delete('/:_id')
-    public delete(req: express.Request, res: express.Response): Promise<any> {
+    public delete(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let _id: string;
-            try {
-                _id = req.params._id;
-            } catch(e) {
-                res.send({"error": "error"});
-                reject(e);
-            }
-            this.temperatureService.delete(_id)
+            this.temperatureService.delete(id)
                 .then(result => {
                     res.send({"success": result});
                     resolve(result);
@@ -94,11 +77,10 @@ export class TemperatureController implements interfaces.Controller {
     }
 
 
-    @Get(":_id")
-    public findById(req: express.Request, res: express.Response): Promise<any> {
+    @Get("/:_id")
+    public findById(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let _id: string = req.params._id;
-            this.temperatureService.findById(_id)
+            this.temperatureService.findById(id)
                 .then(result => {
                     res.send(result);
                     resolve(result);

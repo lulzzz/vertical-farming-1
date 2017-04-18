@@ -3,7 +3,7 @@
  */
 import {container} from "./inversify.config";
 import {InversifyExpressServer} from "inversify-express-utils";
-import {Middleware} from "./config/middleware/middleware.config";
+import {Middleware} from "./config";
 
 const server = new InversifyExpressServer(container);
 server.setConfig((app) => {

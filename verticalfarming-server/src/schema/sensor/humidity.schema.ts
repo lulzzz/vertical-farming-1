@@ -1,24 +1,20 @@
-import DataAccess = require("../../config/db/data-access.config");
 import {injectable} from "inversify";
 import {BaseSchema} from "../interfaces/base.schema";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
+import {MongoConfig} from "../../config/db/mongo.config";
 /**
  * Created by alexanderlerma on 2/19/17.
  */
-
-
-const mongoose = DataAccess.mongooseInstance;
-const mongooseConnection = DataAccess.mongooseConnection;
 
 @injectable()
 export class HumiditySchema implements BaseSchema {
 
     public mongooseModel() {
-        return mongooseConnection.model<ISensor>("humidity", this.schema(), "humidity");
+        return MongoConfig.getConnection().model<ISensor>("humidity", this.schema(), "humidity");
     }
 
     private schema() {
-        const schema = mongoose.Schema({
+        const schema = MongoConfig.getMongooseInstance().Schema({
             name: {
                 type: String,
                 required: true

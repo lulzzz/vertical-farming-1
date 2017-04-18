@@ -2,9 +2,9 @@
  * Created by alexanderlerma on 3/5/17.
  */
 import * as express from "express";
-import {SearchService} from "../../service/sensor/search.service";
+import {SearchService} from "../../service";
 import {injectable, inject} from "inversify";
-import {TYPES} from "../../config/constants/types";
+import {TYPES} from "../../config";
 import {interfaces, Controller, Get} from "inversify-express-utils";
 
 @Controller('/search')

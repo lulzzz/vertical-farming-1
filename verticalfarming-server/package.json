@@ -2,7 +2,7 @@
   "name": "verticalfarming-server",
   "version": "1.0.0",
   "description": "restful web service for vertical farming sensors",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "postinstall": "gulp build",
     "start": "nf start",

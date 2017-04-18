@@ -1,24 +1,17 @@
-import DataAccess = require("../../config/db/data-access.config");
 import {injectable} from "inversify";
 import {BaseSchema} from "../interfaces/base.schema";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
-/**
- * Created by alexanderlerma on 2/19/17.
- */
-
-
-const mongoose = DataAccess.mongooseInstance;
-const mongooseConnection = DataAccess.mongooseConnection;
+import {MongoConfig} from "../../config/db/mongo.config";
 
 @injectable()
-export class PhSchema implements BaseSchema {
+export class TemperatureSchema implements BaseSchema {
 
     public mongooseModel() {
-        return mongooseConnection.model<ISensor>("ph", this.schema(), "ph");
+        return MongoConfig.getConnection().model<ISensor>("temperature", this.schema(), "temperature");
     }
 
     private schema() {
-        const schema = mongoose.Schema({
+        const schema = MongoConfig.getMongooseInstance().Schema({
             name: {
                 type: String,
                 required: true
@@ -54,7 +47,7 @@ export class PhSchema implements BaseSchema {
                 this.createdAt = now;
             }
             this.modifiedAt = now;
-            this.type = 'ph';
+            this.type = 'temperature';
             next();
             return this;
         });

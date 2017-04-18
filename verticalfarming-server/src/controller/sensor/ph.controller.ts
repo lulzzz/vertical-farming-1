@@ -2,12 +2,12 @@
  * Created by alexanderlerma on 2/19/17.
  */
 import * as express from "express";
-import {PhService} from "../../service/sensor/ph.service";
+import {Controller, interfaces, Post, Get, RequestParam, Put, Delete} from "inversify-express-utils";
 import {injectable, inject} from "inversify";
-import {ISensor} from "../../model/interfaces/sensor/base.sensor";
-import {TYPES} from "../../config/constants/types";
-import {Post, Controller, Put, Get, Delete, interfaces} from "inversify-express-utils";
-import {resolve} from "inversify/dts/resolution/resolver";
+import {TYPES} from "../../config";
+import {PhService} from "../../service";
+import {ISensor} from "../../model";
+
 
 
 @Controller('/ph')
@@ -34,19 +34,10 @@ export class PhController implements interfaces.Controller {
     }
 
     @Put('/:_id')
-    public update(req: express.Request, res: express.Response): Promise<any> {
+    public update(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let ph: ISensor;
-            let sensorId: string;
-            try {
-                ph = <ISensor>req.body;
-                sensorId = req.params._id;
-            } catch (e) {
-                res.send({"error": "error in your request" + ph});
-                reject(e)
-            }
-
-            this.phService.update(sensorId, ph)
+            const ph: ISensor = (req.body.body ? JSON.parse(req.body.body) : req.body);
+            this.phService.update(id, ph)
                 .then((result) => {
                     res.send({"error": "error"});
                     resolve(result);
@@ -59,16 +50,9 @@ export class PhController implements interfaces.Controller {
     }
 
     @Delete('/:_id')
-    public delete(req: express.Request, res: express.Response): Promise<any> {
+    public delete(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let _id: string;
-            try {
-                _id = req.params._id;
-            } catch(e) {
-                res.send({"error": "error"});
-                reject(e);
-            }
-            this.phService.delete(_id)
+            this.phService.delete(id)
                 .then(result => {
                     res.send({"success": result});
                     resolve(result);
@@ -96,11 +80,10 @@ export class PhController implements interfaces.Controller {
     }
 
 
-    @Get(":_id")
-    public findById(req: express.Request, res: express.Response): Promise<any> {
+    @Get("/:_id")
+    public findById(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let _id: string = req.params._id;
-            this.phService.findById(_id)
+            this.phService.findById(id)
                 .then(result => {
                     res.send(result);
                     resolve(result);

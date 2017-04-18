@@ -3,10 +3,10 @@
  */
 import * as express from "express";
 import {injectable, inject} from "inversify";
-import {ISensor} from "../../model/interfaces/sensor/base.sensor";
-import {TYPES} from "../../config/constants/types";
-import {Post, Controller, Put, Get, Delete, interfaces} from "inversify-express-utils";
-import {HumidityService} from "../../service/sensor/humidity.service";
+import {ISensor} from "../../model";
+import {TYPES} from "../../config";
+import {Post, Controller, Put, Get, Delete, interfaces, RequestParam} from "inversify-express-utils";
+import {HumidityService} from "../../service";
 
 
 @Controller('/humidity')
@@ -19,8 +19,7 @@ export class HumidityController implements interfaces.Controller {
     @Post('/')
     public create(req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            console.log(req.body);
-            let humidity : ISensor = (req.body.body ? JSON.parse(req.body.body) : req.body);
+            const humidity : ISensor = (req.body.body ? JSON.parse(req.body.body) : req.body);
             this.humidityService.create(humidity)
                 .then(result => {
                     res.send({"success": "created object\n" + JSON.stringify(humidity)});
@@ -34,19 +33,11 @@ export class HumidityController implements interfaces.Controller {
     }
 
     @Put('/:_id')
-    public update(req: express.Request, res: express.Response): Promise<any> {
+    public update(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let humidity: ISensor;
-            let sensorId: string;
-            try {
-                humidity = <ISensor>req.body;
-                sensorId = req.params._id;
-            } catch (e) {
-                res.send({"error": "error in your request" + humidity});
-                reject(e)
-            }
+            const humidity : ISensor = (req.body.body ? JSON.parse(req.body.body) : req.body);
 
-            this.humidityService.update(sensorId, humidity)
+            this.humidityService.update(id, humidity)
                 .then((result) => {
                     res.send({"error": "error"});
                     resolve(result);
@@ -59,16 +50,9 @@ export class HumidityController implements interfaces.Controller {
     }
 
     @Delete('/:_id')
-    public delete(req: express.Request, res: express.Response): Promise<any> {
+    public delete(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let _id: string;
-            try {
-                _id = req.params._id;
-            } catch(e) {
-                res.send({"error": "error"});
-                reject(e);
-            }
-            this.humidityService.delete(_id)
+            this.humidityService.delete(id)
                 .then(result => {
                     res.send({"success": result});
                     resolve(result);
@@ -96,11 +80,11 @@ export class HumidityController implements interfaces.Controller {
     }
 
 
-    @Get(":_id")
-    public findById(req: express.Request, res: express.Response): Promise<any> {
+    @Get("/:_id")
+    public findById(@RequestParam(':_id') id: string, req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let _id: string = req.params._id;
-            this.humidityService.findById(_id)
+            // const _id: string = req.params._id;
+            this.humidityService.findById(id)
                 .then(result => {
                     res.send(result);
                     resolve(result);

@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import {Container} from "inversify";
-import {PhController, TemperatureController, SearchController, HumidityController} from './controller';
+import {PhController, TemperatureController, SearchController, HumidityController} from "./controller";
 import {PhService, TemperatureService, SearchService, HumidityService} from "./service";
-import {TemperatureRepository, PhRepository, HumidityRepository} from './repository';
-import {PhSchema, TemperatureSchema, HumiditySchema} from "./schemas";
-import {TYPES} from "./config/constants/types";
+import {TemperatureRepository, PhRepository, HumidityRepository} from "./repository";
+import {PhSchema, TemperatureSchema, HumiditySchema} from "./schema";
+import {TYPES} from "./config";
 import {interfaces, TYPE} from "inversify-express-utils";
-import { makeLoggerMiddleware } from 'inversify-logger-middleware';
+import {makeLoggerMiddleware} from "inversify-logger-middleware";
 
 const container = new Container();
 const logger = makeLoggerMiddleware();

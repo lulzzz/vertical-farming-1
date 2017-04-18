@@ -7,7 +7,7 @@ const tsProject = ts.createProject('tsconfig.json');
 gulp.task('build', () => {
 	const tsResult = tsProject.src()
 		.pipe(tsProject());
-	return tsResult.js.pipe(gulp.dest('build'));
+	return tsResult.js.pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', ['build'], () => {

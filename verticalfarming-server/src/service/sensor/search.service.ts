@@ -6,7 +6,6 @@ import {ISearchService} from "../interfaces/search.service";
 import {PhRepository} from "../../repository/sensor/ph.repository";
 import {TemperatureRepository} from "../../repository/sensor/temperature.repository";
 import {TYPES} from "../../config/constants/types";
-import {ISensor} from "../../model/interfaces/sensor/base.sensor";
 import {HumidityRepository} from "../../repository/sensor/humidity.repository";
 
 @injectable()

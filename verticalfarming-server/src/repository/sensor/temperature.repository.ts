@@ -1,6 +1,6 @@
 import {BaseRepository} from "./base.repository";
 import {injectable, decorate, inject} from "inversify";
-import {TemperatureSchema} from "../../schemas/sensor/temperature.schema";
+import {TemperatureSchema} from "../../schema/sensor/temperature.schema";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
 import {TYPES} from "../../config/constants/types";
 
