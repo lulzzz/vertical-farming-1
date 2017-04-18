@@ -1,8 +1,8 @@
-import {Sensor} from "../../model/sensor/sensor.model";
+import {ISensor} from "../../model/sensor/sensor.interface";
 /**
  * Created by alexanderlerma on 3/27/17.
  */
 export interface SensorService {
-  getAll(): Promise<Sensor[]>;
-  getById(id: number): Promise<Sensor[]>;
+  getAll(): Promise<ISensor[]>;
+  getById(id: number): Promise<ISensor[]>;
 }

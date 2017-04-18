@@ -36,7 +36,7 @@ export class BaseRepository<T extends mongoose.Document> implements IRead<T>, IW
     }
 
     public findByRoom(room: string): Promise<any> {
-        return this._model.find({room: room}, 'room').exec();
+        return this._model.find({room: room}, '_room').exec();
 
     }
 

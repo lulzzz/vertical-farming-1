@@ -1,6 +1,24 @@
-<div class="input-group">
-  <input (input)="term$.next($event.target.value)" class="form-control" placeholder="Search for sensors" aria-describedby="search-bar">
+<form name="searchform">
+  <div class="input-group">
+    <input name="searchinput" (input)="term$.next($event.target.value)" class="form-control" placeholder="Search for sensors" aria-describedby="search-bar">
+  </div>
+</form>
+
+<div class="list-group">
+  <a *ngFor="let room of rooms" class="list-group-item list-group-item-action">
+    {{room.name}}
+      <a *ngFor="let rack of room.racks" class="list-group-item indent list-group-item-action">
+        {{rack.name}}
+        <a *ngFor="let name of rack.sensorNames" class="list-group-item indent list-group-item-action">
+          {{name}}
+        </a>
+      </a>
+  </a>
 </div>
-<ul class="list-group">
-  <li class="list-group-item" *ngFor="let item of items">{{item}}</li>
-</ul>
+
+<div *ngIf="rooms">
+  <vf-chart *ngFor="let room of rooms"
+            [room] = room >
+  </vf-chart>
+</div>
+

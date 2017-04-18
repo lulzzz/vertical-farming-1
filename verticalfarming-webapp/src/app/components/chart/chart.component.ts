@@ -1,17 +1,19 @@
 /**
  * Created by alexanderlerma on 3/27/17.
  */
-import {Component, OnInit} from '@angular/core';
+import 'chart.js/src/chart';
+declare const Chart;
+import {Component, Input} from '@angular/core';
 import {TemperatureService} from "../../service/sensor/temperature.service";
-// import {SensorService} from "../../service/base/sensor.service";
+import {Room} from "../../model/room/room.model";
 
 @Component({
   selector: 'vf-chart',
   templateUrl: './chart.component.html',
   providers: [TemperatureService]
 })
-export class VFChartComponent implements OnInit {
-
+export class VFChartComponent {
+  public _room: Room;
   public lineChartData: Array<any>;
   public lineChartLabels: Array<any>;
   public lineChartLegend: boolean = true;
@@ -32,15 +34,26 @@ export class VFChartComponent implements OnInit {
     },
   ];
 
-  constructor(private service: TemperatureService) {}
-
-  ngOnInit(): void {
-    this.service.getAll().then(sensors => {
-      this.lineChartData = [
-        {data: sensors.map(x => x.data), label: sensors[0].type}
-      ];
-      this.lineChartLabels = sensors.map(x => x.createdAt);
-    });
+  @Input()
+  set room(room : Room){
+    this._room = room;
+    this.lineChartData = this._room.racks
+      .map(rack => {
+        const formatted: any[] = [];
+        for (const key of Object.keys(rack.sensors)) {
+          formatted.push({data: rack.sensors[key].map(sensor => sensor.data), label: key});
+        }
+        console.log(JSON.stringify(formatted));
+        return formatted;
+      });
+    this.lineChartLabels = this._room.racks
+      .map(rack => {
+        const formatted: string[] = [];
+        for (const key of Object.keys(rack.sensors)) {
+          formatted.push(rack.sensors[key].map(sensor => sensor.createdAt));
+        }
+        return formatted;
+      })
   }
 
   public chartClicked(e:any):void {
@@ -49,9 +62,5 @@ export class VFChartComponent implements OnInit {
 
   public chartHovered(e:any):void {
     console.log(e);
-  }
-
-  public reload(): void {
-    this.ngOnInit();
   }
 }

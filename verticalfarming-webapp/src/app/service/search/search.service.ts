@@ -4,8 +4,8 @@
 import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {Constants} from "../../config/constants/constants";
-import {ISensor} from "../../model/sensor/sensor.interface";
+import { Constants } from "../../config/constants/constants";
+import { ISensor } from "../../model/sensor/sensor.interface";
 
 @Injectable()
 export class SearchService  {
@@ -21,8 +21,10 @@ export class SearchService  {
       .switchMap(term => this.rawsearch(term));
   }
 
-  rawsearch(query) {
-    const url = `${Constants.VF_URL}${this.searchUrl}?query=${query}`;
+  rawsearch(query) : any {
+    if(query == '')
+      return Observable.empty();
+    const url = `${Constants.SERVER_URL}${this.searchUrl}?query=${query}`;
     console.log(url);
     return this.http
       .get(url)

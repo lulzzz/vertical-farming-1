@@ -1,6 +1,39 @@
 # Vertical Farming
 
+### About
+
+The vertical farming source code consists of two separate packages.
+
+* verticalfarming-server
+* verticalfarming-webapp
+
+The packages are two separate projects. 
+
+Each project must run independently as its own process.
+
 ### Server
+
+##### Technologies
+
+* Node.js 
+* Typescript (statically typed JavaScript)
+* Express (Web Framework)
+* MongoDB (Database)
+* InversifyJS (Dependency Injection)
+
+##### How to run locally
+
+To start the vertical farming server
+
+`cd ./verticalfarming-server`
+
+`npm install`
+
+`npm start`
+
+You should see which port the server is running on and get a message that says 
+if the server connected to Mongodb
+
 
 ##### What is it?
 A RESTful webserver that allows the vertical farm to store sensor data such as temperatures and ph levels. 
@@ -27,7 +60,57 @@ POST to verticalfarming.herokuapp.com/ph
 `ph = {"name": "ph1", "room": "room1", "rack": "rack1", "data": 7.2, "type": "ph"}`
 
 
+The Server can also search for sensors using full text search. This is a feature of MongoDB (database) that was enabled for 
+this project. 
 
+A query is simply a string. MongoDB uses a Regex search to find matching text using the supplied query string. 
 
+Each Sensor can be searched by name, room, rack, and type.
 
+A client must use a GET request to verticalfarming.herokuapp.com/search?query=`something`
 
+where `something` can be any query you want to look for.
+
+E.g. lets say a client want to search for `om2`
+
+`GET verticalfarming.herokuapp.com/search?query=om2`
+
+this would return all sensors where any field 
+
+### Webapp
+
+##### Technologies
+
+* Angular 2 (Web Framework & Dependency Injection)
+* Typescript (statically typed JavaScript)
+* Express (to serve the webapp)
+
+##### How to run locally
+
+To start the vertical farming webapp
+
+`cd ./verticalfarming-webapp`
+
+`npm install`
+
+`npm start`
+
+You should see which port the webapp is using.
+
+##### What is it? 
+
+An Angular 2 Webapp that instantly searches for rooms, racks, and sensors. 
+
+##### What this means?
+
+When you type something in the search bar, a request is immediately sent to the server (talked about above). 
+
+A search is simply a string query gets sent to the server which returns any matching sensor objects. 
+
+This is done by sending a GET request. 
+
+E.g. for a search with term hello
+
+`GET  verticalfarming.herokucapp.com/query=hello`
+
+will get all results that match hello.

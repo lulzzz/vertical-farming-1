@@ -18,15 +18,7 @@ export class TemperatureController implements interfaces.Controller {
     @Post('/')
     public create(req: express.Request, res: express.Response): Promise<any> {
         return new Promise((resolve, reject) => {
-            let temperature : ISensor;
-            try {
-                temperature = <ISensor>req.body;
-            }
-            catch (e) {
-                res.send({"error": "error in your request" + temperature});
-                reject(e)
-            }
-
+            let temperature : ISensor = (req.body.body ? req.body.body : req.body) as ISensor;
             this.temperatureService.create(temperature)
                 .then(result => {
                     res.send({"success": "created object\n" + temperature});
