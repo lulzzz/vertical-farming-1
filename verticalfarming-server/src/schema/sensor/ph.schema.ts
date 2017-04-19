@@ -10,7 +10,7 @@ import {MongoConfig} from "../../config/db/mongo.config";
 export class PhSchema implements BaseSchema {
 
     public mongooseModel() {
-        return MongoConfig.getConnection().model<ISensor>("humidity", this.schema(), "humidity");
+        return MongoConfig.getConnection().model<ISensor>("ph", this.schema(), "ph");
     }
 
     private schema() {

@@ -27,7 +27,6 @@ let SearchService = class SearchService {
         this.humidityRepository = humidityRepository;
     }
     search(query) {
-        console.log('query is' + query);
         return Promise
             .all([this.temperatureRepository.search(query),
             this.phRepository.search(query),

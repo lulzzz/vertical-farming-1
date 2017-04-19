@@ -37,23 +37,21 @@ export class VFChartComponent {
   @Input()
   set room(room : Room){
     this._room = room;
-    this.lineChartData = this._room.racks
+    let dataLabels = {'data': [], 'labels': []};
+    this._room.racks
       .map(rack => {
-        const formatted: any[] = [];
-        for (const key of Object.keys(rack.sensors)) {
-          formatted.push({data: rack.sensors[key].map(sensor => sensor.data), label: key});
-        }
-        console.log(JSON.stringify(formatted));
-        return formatted;
+        rack.sensorNames.forEach((sensorName) => {
+          dataLabels['data']
+            .push({
+              data: rack.sensors[sensorName].map(sensor => sensor.data),
+              label: sensorName + ' ' + rack.name});
+          dataLabels['labels']
+            .push(rack.sensors[sensorName].map(sensor => sensor.createdAt + sensorName))
+        });
       });
-    this.lineChartLabels = this._room.racks
-      .map(rack => {
-        const formatted: string[] = [];
-        for (const key of Object.keys(rack.sensors)) {
-          formatted.push(rack.sensors[key].map(sensor => sensor.createdAt));
-        }
-        return formatted;
-      })
+    console.log(JSON.stringify(dataLabels));
+    this.lineChartData = dataLabels['data'];
+    this.lineChartLabels = dataLabels['labels'];
   }
 
   public chartClicked(e:any):void {

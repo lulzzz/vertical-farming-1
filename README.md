@@ -11,6 +11,10 @@ The packages are two separate projects.
 
 Each project must run independently as its own process.
 
+Each project requires you to have node.js and npm installed.
+
+You can get them both using [the Node.js Installer located here](https://nodejs.org/en/).
+
 ### Server
 
 ##### Technologies
@@ -80,10 +84,10 @@ this would return all sensors where any field
 ### Webapp
 
 ##### Technologies
-
-* Angular 2 (Web Framework & Dependency Injection)
-* Typescript (statically typed JavaScript)
-* Express (to serve the webapp)
+* Angular 2 (Web Framework and Dependency Injection)
+* Typescript (Statically typed JavaScript)
+* Bootstrap 4 (Web framework for responsive design)
+* Express (Server for the webapp)
 
 ##### How to run locally
 

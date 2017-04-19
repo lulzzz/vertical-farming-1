@@ -13,7 +13,7 @@ const mongo_config_1 = require("../../config/db/mongo.config");
  */
 let PhSchema = class PhSchema {
     mongooseModel() {
-        return mongo_config_1.MongoConfig.getConnection().model("humidity", this.schema(), "humidity");
+        return mongo_config_1.MongoConfig.getConnection().model("ph", this.schema(), "ph");
     }
     schema() {
         const schema = mongo_config_1.MongoConfig.getMongooseInstance().Schema({
