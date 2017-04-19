@@ -1,8 +1,6 @@
 /**
  * Created by alexanderlerma on 3/27/17.
  */
-import 'chart.js/src/chart';
-declare const Chart;
 import {Component, Input} from '@angular/core';
 import {TemperatureService} from "../../service/sensor/temperature.service";
 import {Room} from "../../model/room/room.model";

@@ -45,15 +45,25 @@ export class BaseRepository<T extends mongoose.Document> implements IRead<T>, IW
     }
 
 
-    public search(query: string) : Promise<any> {
-        return this._model
-            .find({$or: [
-                {name: {$regex: query, $options: 'i'}},
-                {room: {$regex: query, $options: 'i'}},
-                {rack: {$regex: query, $options: 'i'}},
-                {type: {$regex: query, $options: 'i'}}]})
-            .exec();
+    public search(query: string, start?: Date, end?: Date) : Promise<any> {
+        const regexSearch = {$or: [
+            {name: {$regex: query, $options: 'i'}},
+            {room: {$regex: query, $options: 'i'}},
+            {rack: {$regex: query, $options: 'i'}},
+            {type: {$regex: query, $options: 'i'}}]
+        };
 
+        if (start && end) {
+            return this._model
+                .find({$and: [
+                    {createdAt: {$gte: start}},
+                    {createdAt: {$lte: end}},
+                    regexSearch]})
+                .exec();
+        }
+        return this._model
+            .find(regexSearch)
+            .exec();
     }
 
     private toObjectId (_id: string) : mongoose.Types.ObjectId {

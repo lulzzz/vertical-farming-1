@@ -15,7 +15,7 @@ export class SearchService implements ISearchService {
                 @inject(TYPES.TemperatureRepository) private temperatureRepository: TemperatureRepository,
                 @inject(TYPES.HumidityRepository) private humidityRepository: HumidityRepository) {}
 
-    public search(query: string) : Promise <any> {
+    public search(query: string, start?: Date, end?: Date) : Promise <any> {
         return Promise
             .all([this.temperatureRepository.search(query),
                   this.phRepository.search(query),
