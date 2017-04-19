@@ -4,6 +4,7 @@
 import {container} from "./inversify.config";
 import {InversifyExpressServer} from "inversify-express-utils";
 import {Middleware} from "./config";
+import {Constants} from "./config/constants/constants";
 
 const server = new InversifyExpressServer(container);
 server.setConfig((app) => {
@@ -11,6 +12,6 @@ server.setConfig((app) => {
 });
 
 const app = server.build();
-app.listen(parseInt(process.env.PORT, 10));
+app.listen(Constants.PORT);
 
 export {app};
