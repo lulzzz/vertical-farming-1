@@ -21,13 +21,24 @@ export class SearchController implements interfaces.Controller {
                    @QueryParam('start') start?: Date,
                    @QueryParam('end') end?: Date) : Promise<any> {
         return new Promise((resolve, reject) => {
-            this.searchService.search(query, start, end).then(result => {
-                res.send(result);
-                resolve(result);
-            }).catch((error) => {
-                res.send({"error": "error with search term: " + query});
-                reject(error);
-            });
+            if (start && end) {
+                this.searchService.search(query, start, end).then(result => {
+                    res.send(result);
+                    resolve(result);
+                }).catch((error) => {
+                    res.send({"error": "error with search term: " + query});
+                    reject(error);
+                });
+            } else {
+                this.searchService.search(query).then(result => {
+                    res.send(result);
+                    resolve(result);
+                }).catch((error) => {
+                    res.send({"error": "error with search term: " + query});
+                    reject(error);
+                });
+            }
+
         });
     }
 }
