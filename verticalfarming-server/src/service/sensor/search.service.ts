@@ -17,9 +17,9 @@ export class SearchService implements ISearchService {
 
     public search(query: string, start?: Date, end?: Date) : Promise <any> {
         return Promise
-            .all([this.temperatureRepository.search(query),
-                  this.phRepository.search(query),
-                  this.humidityRepository.search(query)])
+            .all([this.temperatureRepository.search(query, start, end),
+                  this.phRepository.search(query, start, end),
+                  this.humidityRepository.search(query, start, end)])
             .then(results => {
                 return [].concat.apply([], results);
             });
