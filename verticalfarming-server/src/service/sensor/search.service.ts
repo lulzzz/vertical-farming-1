@@ -16,7 +16,6 @@ export class SearchService implements ISearchService {
                 @inject(TYPES.HumidityRepository) private humidityRepository: HumidityRepository) {}
 
     public search(query: string) : Promise <any> {
-        console.log('query is' + query);
         return Promise
             .all([this.temperatureRepository.search(query),
                   this.phRepository.search(query),

@@ -16,7 +16,7 @@
   </a>
 </div>
 
-<div *ngIf="rooms">
+<div *ngIf="term$.asObservable().count > 0">
   <vf-chart *ngFor="let room of rooms"
             [room] = room >
   </vf-chart>

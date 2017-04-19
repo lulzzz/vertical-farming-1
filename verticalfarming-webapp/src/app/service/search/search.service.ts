@@ -25,9 +25,8 @@ export class SearchService  {
     if(query == '')
       return Observable.empty();
     const url = `${Constants.SERVER_URL}${this.searchUrl}?query=${query}`;
-    console.log(url);
     return this.http
       .get(url)
-      .map(response => response.json() as ISensor[]);
+      .map(response => response.json() as ISensor[])
   }
 }
