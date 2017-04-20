@@ -9,8 +9,9 @@
     {{room.name}}
       <a *ngFor="let rack of room.racks" class="list-group-item indent list-group-item-action">
         {{rack.name}}
-        <a *ngFor="let name of rack.sensorNames" class="list-group-item indent list-group-item-action">
+        <a *ngFor="let name of rack.sensorNames" class="list-group-item indent list-group-item-action justify-content-between">
           {{name}}
+          <span class="badge badge-default badge-pill">{{name.length}}</span>
         </a>
       </a>
   </a>
