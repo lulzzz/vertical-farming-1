@@ -26,12 +26,27 @@ let SearchController = class SearchController {
     }
     search(req, res) {
         return new Promise((resolve, reject) => {
-            const term = req.query.query;
-            this.searchService.search(term).then(result => {
+            const query = req.query.query;
+            const start = req.query.start;
+            const end = req.query.end;
+            this.searchService.search(query, start, end).then(result => {
                 res.send(result);
                 resolve(result);
             }).catch((error) => {
-                res.send({ "error": "error with search term: " + term });
+                res.send({ "error": "error with search term: " + query });
+                reject(error);
+            });
+        });
+    }
+    dateRange(req, res) {
+        return new Promise((resolve, reject) => {
+            this.searchService.dateRange()
+                .then(result => {
+                res.send(result);
+                resolve(result);
+            })
+                .catch(error => {
+                res.send({ 'error': 'error getting date range' });
                 reject(error);
             });
         });
@@ -43,6 +58,12 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], SearchController.prototype, "search", null);
+__decorate([
+    inversify_express_utils_1.Get("/daterange"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], SearchController.prototype, "dateRange", null);
 SearchController = __decorate([
     inversify_express_utils_1.Controller('/search'),
     inversify_1.injectable(),

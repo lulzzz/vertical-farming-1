@@ -44,6 +44,16 @@ export class BaseRepository<T extends mongoose.Document> implements IRead<T>, IW
         return this._model.find({rack: rack}, 'rack').exec();
     }
 
+    public dateRange() : Promise<any> {
+        return this._model.aggregate({
+            $project: {
+                min : {$min : '$createdAt'},
+                max : {$max : '$createdAt'}
+            }
+        }).exec();
+    }
+
+
 
     public search(query: string, start?: Date, end?: Date) : Promise<any> {
         const regexSearch = {$or: [

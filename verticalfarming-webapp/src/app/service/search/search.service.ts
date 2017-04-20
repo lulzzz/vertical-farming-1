@@ -16,7 +16,7 @@ export class SearchService  {
 
   search(terms: Observable<string>, debounceTime: number = 400) {
     return terms
-      .debounceTime(400)
+      .debounceTime(debounceTime)
       .distinctUntilChanged()
       .switchMap(term => this.rawsearch(term));
   }
@@ -27,6 +27,9 @@ export class SearchService  {
     const url = `${Constants.SERVER_URL}${this.searchUrl}?query=${query}`;
     return this.http
       .get(url)
-      .map(response => response.json() as ISensor[])
+      .map(response => response.json() as ISensor[]);
+      // .groupBy(sensor => sensor.room)
+      // .flatMap(group => group.reduce((acc, curr) => [...acc, curr], []));
+
   }
 }

@@ -33,4 +33,8 @@ export class TemperatureService implements ITemperatureService {
     public search(query: string) : Promise<any> {
         return this.temperatureRepository.search(query);
     }
+
+    public dateRange() : Promise<any> {
+        return this.temperatureRepository.dateRange();
+    }
 }

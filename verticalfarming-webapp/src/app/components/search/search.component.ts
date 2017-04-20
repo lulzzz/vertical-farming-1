@@ -17,14 +17,15 @@ import {Rack} from "../../model/room/rack.model";
 export class VFSearchComponent implements OnInit {
 
   rooms: Room[];
-  term$ = new Subject<string>();
+  query$ = new Subject<string>();
 
   constructor(private service: SearchService) {}
 
   ngOnInit() {
     this.service
-      .search(this.term$)
+      .search(this.query$)
       .subscribe(results => {
+        console.log(JSON.stringify(results));
         const roomGrouped = SearchUtil.groupBy(results as ISensor[], 'room');
         this.rooms = Object.keys(roomGrouped).map(key => {
           const rackGrouped = SearchUtil.groupBy(roomGrouped[key], 'rack');

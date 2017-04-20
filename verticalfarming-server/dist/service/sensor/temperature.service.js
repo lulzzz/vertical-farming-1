@@ -37,6 +37,9 @@ let TemperatureService = class TemperatureService {
     search(query) {
         return this.temperatureRepository.search(query);
     }
+    dateRange() {
+        return this.temperatureRepository.dateRange();
+    }
 };
 TemperatureService = __decorate([
     inversify_1.injectable(),

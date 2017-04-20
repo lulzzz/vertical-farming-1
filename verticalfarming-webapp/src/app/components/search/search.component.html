@@ -1,6 +1,6 @@
 <form name="searchform">
   <div class="input-group">
-    <input name="searchinput" (input)="term$.next($event.target.value)" class="form-control" placeholder="Search for sensors" aria-describedby="search-bar">
+    <input name="searchinput" (input)="query$.next($event.target.value)" class="form-control" placeholder="Search for sensors" aria-describedby="search-bar">
   </div>
 </form>
 
@@ -16,9 +16,9 @@
   </a>
 </div>
 
-<div>
-  <vf-chart *ngFor="let room of rooms"
-            [room] = room >
-  </vf-chart>
-</div>
+<!--<div>-->
+  <!--<vf-chart *ngFor="let room of rooms"-->
+            <!--[room] = room >-->
+  <!--</vf-chart>-->
+<!--</div>-->
 

@@ -64,6 +64,8 @@ POST to verticalfarming.herokuapp.com/ph
 `ph = {"name": "ph1", "room": "room1", "rack": "rack1", "data": 7.2, "type": "ph"}`
 
 
+##### Search
+
 The Server can also search for sensors using full text search. This is a feature of MongoDB (database) that was enabled for 
 this project. 
 
@@ -79,7 +81,15 @@ E.g. lets say a client want to search for `om2`
 
 `GET verticalfarming.herokuapp.com/search?query=om2`
 
-this would return all sensors where any field 
+this would return all sensors where any field matches om2. Something like {... room: 'room2'} would be matching sensor.
+
+You can also create a time interval that returns all results between two dates like so:
+
+`GET https://verticalfarming.herokuapp.com/search?query=tem&start=2017-04-19T22:34:52.342Z&end=2017-04-19T22:34:52.342Z`
+
+Notice the & separating the search criteria.
+
+`start` and `end` both must be valid js Date objects in JSON.stringified() form.
 
 ### Webapp
 

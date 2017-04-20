@@ -51,6 +51,12 @@ export class VFChartComponent {
     this.lineChartData = dataLabels['data'];
     this.lineChartLabels = dataLabels['labels'];
   }
+  //
+  // drawChart(start?: Date, end?: Date) {
+  //   if (start && end) {
+  //
+  //   }
+  // }
 
   public chartClicked(e:any):void {
     console.log(e);

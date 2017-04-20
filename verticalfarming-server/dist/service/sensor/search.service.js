@@ -26,13 +26,32 @@ let SearchService = class SearchService {
         this.temperatureRepository = temperatureRepository;
         this.humidityRepository = humidityRepository;
     }
-    search(query) {
+    search(query, start, end) {
         return Promise
-            .all([this.temperatureRepository.search(query),
-            this.phRepository.search(query),
-            this.humidityRepository.search(query)])
+            .all([this.temperatureRepository.search(query, start, end),
+            this.phRepository.search(query, start, end),
+            this.humidityRepository.search(query, start, end)])
             .then(results => {
             return [].concat.apply([], results);
+        });
+    }
+    dateRange() {
+        return Promise
+            .all([this.temperatureRepository.dateRange(),
+            this.phRepository.dateRange(),
+            this.humidityRepository.dateRange()])
+            .then(results => {
+            const flattened = results.reduce((a, b) => { return a.concat(b); });
+            const minMax = { 'min': flattened[0]['min'], 'max': flattened[0]['max'] };
+            flattened.forEach(mm => {
+                if (mm.min < minMax.min) {
+                    minMax['min'] = mm['min'];
+                }
+                if (mm.max > mm.max) {
+                    minMax['max'] = mm['max'];
+                }
+            });
+            return minMax;
         });
     }
 };

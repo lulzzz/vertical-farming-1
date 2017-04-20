@@ -29,14 +29,34 @@ class BaseRepository {
     findByRack(rack) {
         return this._model.find({ rack: rack }, 'rack').exec();
     }
-    search(query) {
-        return this._model
-            .find({ $or: [
+    dateRange() {
+        return this._model.aggregate({
+            $project: {
+                min: { $min: '$createdAt' },
+                max: { $max: '$createdAt' }
+            }
+        }).exec();
+    }
+    search(query, start, end) {
+        const regexSearch = { $or: [
                 { name: { $regex: query, $options: 'i' } },
                 { room: { $regex: query, $options: 'i' } },
                 { rack: { $regex: query, $options: 'i' } },
                 { type: { $regex: query, $options: 'i' } }
-            ] })
+            ]
+        };
+        console.log(regexSearch);
+        if (start && end) {
+            return this._model
+                .find({ $and: [
+                    { createdAt: { $gte: start } },
+                    { createdAt: { $lte: end } },
+                    regexSearch
+                ] })
+                .exec();
+        }
+        return this._model
+            .find(regexSearch)
             .exec();
     }
     toObjectId(_id) {

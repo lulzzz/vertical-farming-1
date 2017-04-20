@@ -12,29 +12,34 @@ export class PhService implements IPhService {
 
     constructor (@inject(TYPES.PhRepository) private phRepository: PhRepository) {}
 
-    public create (item: ISensor) {
+    public create (item: ISensor) : Promise<any>{
         return this.phRepository.create(item);
     }
 
-    public retrieve () {
+    public retrieve (): Promise<any> {
         return this.phRepository.retrieve();
     }
 
-    public update (_id: string, item: ISensor) {
+    public update (_id: string, item: ISensor): Promise<any> {
 
         return this.phRepository.findById(_id);
     }
 
-    public delete (_id: string) {
+    public delete (_id: string): Promise<any> {
         return this.phRepository.delete(_id);
     }
 
-    public findById (_id: string) {
+    public findById (_id: string): Promise<any> {
         return this.phRepository.findById(_id);
     }
 
-    public search(query: string)  {
+    public search(query: string): Promise<any>  {
         return this.phRepository.search(query);
     }
+
+    public dateRange() : Promise<any>{
+        return this.phRepository.dateRange();
+    }
+
 
 }

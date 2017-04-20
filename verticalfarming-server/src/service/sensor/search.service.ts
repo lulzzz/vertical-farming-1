@@ -24,4 +24,25 @@ export class SearchService implements ISearchService {
                 return [].concat.apply([], results);
             });
     }
+
+    public dateRange() {
+        return Promise
+            .all([this.temperatureRepository.dateRange(),
+                  this.phRepository.dateRange(),
+                  this.humidityRepository.dateRange()])
+            .then(results => {
+                const flattened = results.reduce((a, b) => { return a.concat(b)});
+                const minMax = {'min' : flattened[0]['min'] , 'max' : flattened[0]['max']};
+                flattened.forEach(mm => {
+                    if (mm.min < minMax.min) {
+                        minMax['min'] = mm['min'];
+                    }
+                    if (mm.max > mm.max) {
+                        minMax['max'] = mm['max'];
+                    }
+                });
+                return minMax;
+            });
+    }
+
 }

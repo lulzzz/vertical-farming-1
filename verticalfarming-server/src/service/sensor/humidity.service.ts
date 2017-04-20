@@ -12,29 +12,33 @@ export class HumidityService implements IHumidityService {
 
     constructor (@inject(TYPES.HumidityRepository) private humidityRepository: HumidityRepository) {}
 
-    public create (item: ISensor) {
+    public create (item: ISensor) : Promise<any>{
         return this.humidityRepository.create(item);
     }
 
-    public retrieve () {
+    public retrieve () : Promise<any>{
         return this.humidityRepository.retrieve();
     }
 
-    public update (_id: string, item: ISensor) {
+    public update (_id: string, item: ISensor) : Promise<any>{
 
         return this.humidityRepository.findById(_id);
     }
 
-    public delete (_id: string) {
+    public delete (_id: string) : Promise<any>{
         return this.humidityRepository.delete(_id);
     }
 
-    public findById (_id: string) {
+    public findById (_id: string): Promise<any> {
         return this.humidityRepository.findById(_id);
     }
 
-    public search(query: string)  {
+    public search(query: string) : Promise<any> {
         return this.humidityRepository.search(query);
+    }
+
+    public dateRange() : Promise<any>{
+        return this.humidityRepository.dateRange();
     }
 
 }

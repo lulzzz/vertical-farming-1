@@ -37,6 +37,9 @@ let PhService = class PhService {
     search(query) {
         return this.phRepository.search(query);
     }
+    dateRange() {
+        return this.phRepository.dateRange();
+    }
 };
 PhService = __decorate([
     inversify_1.injectable(),

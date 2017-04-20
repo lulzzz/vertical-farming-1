@@ -40,6 +40,9 @@ let HumidityService = class HumidityService {
     search(query) {
         return this.humidityRepository.search(query);
     }
+    dateRange() {
+        return this.humidityRepository.dateRange();
+    }
 };
 HumidityService = __decorate([
     inversify_1.injectable(),
