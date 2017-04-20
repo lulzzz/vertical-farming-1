@@ -11,7 +11,7 @@
         {{rack.name}}
         <a *ngFor="let name of rack.sensorNames" class="list-group-item indent list-group-item-action justify-content-between">
           {{name}}
-          <span class="badge badge-default badge-pill">{{name.length}}</span>
+          <button type="button" class="btn btn-primary btn-sm">View {{name}} chart using {{rack.sensors[name].length}} data points.</button>
         </a>
       </a>
   </a>
