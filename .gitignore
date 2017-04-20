@@ -10,7 +10,7 @@ dist
 .idea/
 */.idea
 **/.idea
-
+*.pdf
 ### Node ###
 # Logs
 logs

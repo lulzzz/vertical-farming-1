@@ -1,19 +1,44 @@
-# Vertical Farming
+# Vertical Farming Webapp and Server
+
+### IPRO 497: Vertical Farming
+
+#### Sustainable Energy and Technology Team
+
+##### Created by Alexander Lerma
+
+##### alerma@hawk.iit.edu
 
 ### About
 
-The vertical farming source code consists of two separate packages.
+The Vertical Farming source code consists of three separate packages.
 
-* verticalfarming-server
 * verticalfarming-webapp
 
-The packages are two separate projects. 
+    * Hosted at https://verticalfarming-webapp.herokuapp.com
 
-Each project must run independently as its own process.
+    * Contains a webapp that performs instant searches on the sensor data and displays
+     a chart for a selected sensor.
 
-Each project requires you to have node.js and npm installed.
+* verticalfarming-server 
 
-You can get them both using [the Node.js Installer located here](https://nodejs.org/en/).
+    * Hosted at https://verticalfarming.herokuapp.com
+
+    * Contains a restful web server that handles requests for data to and from MongoDB.
+    
+    
+* verticalfarming-sensor 
+
+    * Contains an arduino file for a test humidity/temperature sensor.
+    
+    * The sensor used for testing is a Particle Core, similar to the updated 
+    version found [here.](https://store.particle.io/collections/photon)
+
+
+The server and webapp must run independently as their own process.
+
+Each project requires node.js and npm to be installed.
+
+You can get them both using [the Node.js Installer located here.](https://nodejs.org/en/).
 
 ### Server
 
