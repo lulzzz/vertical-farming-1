@@ -128,3 +128,11 @@ E.g. for a search with term hello
 `GET  verticalfarming.herokucapp.com/query=hello`
 
 will get all results that match hello.
+
+The results are grouped into the following format: 
+
+rooms -> racks -> sensors
+
+Each room contains multiple racks, each rack contains multiple sensors (e.g. ph, temperature, humidity). 
+
+For each rack, a sensor name is displayed with a button to reveal a chart of the selected data.
