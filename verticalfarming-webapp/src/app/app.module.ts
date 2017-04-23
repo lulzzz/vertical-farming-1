@@ -10,8 +10,6 @@ import {VFAccordian} from "./components/accordian/vf-accordian.component";
 import {RackDetail} from "./components/rack-detail/rack-detail.component";
 import {VFChart} from "./components/chart/vf-chart.component";
 import { ChartModule } from 'angular2-highcharts';
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +24,7 @@ import { ChartModule } from 'angular2-highcharts';
     ReactiveFormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    ChartModule.forRoot(require('highcharts')),
+    ChartModule.forRoot(require('highcharts'))
   ],
   providers: [SearchService, PhService, TemperatureService],
   bootstrap: [AppComponent]

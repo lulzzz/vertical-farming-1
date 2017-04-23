@@ -17,13 +17,16 @@ export class VFChart {
 
   @Input()
   set sensors(sensors: Sensor[]) {
+    if (!sensors || sensors.length == 0)
+      return;
     console.log(JSON.stringify(sensors));
     this._sensors = sensors;
     const groupedByName = VfUtil.groupBy(sensors, 'name');
     let series = [];
     Object.keys(groupedByName).forEach(key => {
       const withTimes = groupedByName[key]
-        .map(sensor => [sensor.createdAt, sensor.data]);
+        .map(sensor => [new Date(sensor.createdAt).getTime(), sensor.data])
+        .sort((a, b) => a[0] - b[0]);
       series.push({name: key, data: withTimes});
     });
     this.options  = {
