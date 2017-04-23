@@ -9,10 +9,12 @@ import {Rack} from "../../model/room/rack.model";
   templateUrl: './rack-detail.component.html'
 })
 export class RackDetail {
+  model: any;
   @Input() rack: Rack;
   @Output() onSelectedSensorName =  new EventEmitter<string>();
 
   emitSelectedSensor(sensorName: string) {
+    this.model = sensorName;
     this.onSelectedSensorName.emit(sensorName);
   }
 }

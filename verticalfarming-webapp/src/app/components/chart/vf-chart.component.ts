@@ -3,7 +3,7 @@
  */
 import {Component, Input} from '@angular/core';
 import {Sensor} from "../../model/sensor/sensor.model";
-import {VfUtil} from "../../util/vf.util";
+import {VFUtils} from "../../util/vf.util";
 
 @Component({
   selector: 'vf-chart',
@@ -11,7 +11,6 @@ import {VfUtil} from "../../util/vf.util";
 })
 export class VFChart {
   _sensors: Sensor[];
-  labels: string;
   options: Object;
 
 
@@ -19,33 +18,38 @@ export class VFChart {
   set sensors(sensors: Sensor[]) {
     if (!sensors || sensors.length == 0)
       return;
-    console.log(JSON.stringify(sensors));
+
     this._sensors = sensors;
-    const groupedByName = VfUtil.groupBy(sensors, 'name');
+    const groupedByName = VFUtils.groupBy(sensors, 'name');
     let series = [];
-    Object.keys(groupedByName).forEach(key => {
-      const withTimes = groupedByName[key]
-        .map(sensor => [new Date(sensor.createdAt).getTime(), sensor.data])
-        .sort((a, b) => a[0] - b[0]);
-      series.push({name: key, data: withTimes});
+    Object.keys(groupedByName)
+      .forEach(key => {
+        const withTimes = groupedByName[key]
+          .map(sensor => [new Date(sensor.createdAt).getTime(), sensor.data])
+          .sort((a, b) => a[0] - b[0]);
+        series.push({name: key, data: withTimes});
     });
+    const type : string = VFUtils.capitalizer(sensors[0].type);
     this.options  = {
       chart: {
         type: 'line'
       },
       title: {
-        text: sensors[0].type + ' chart'
+        text: type + ' Chart'
       },
       xAxis: {
         type: 'datetime'
       },
       yAxis: {
         title: {
-          text: 'Temperature'
+          text: type
         }
       },
       series: series
     }
   }
+
+
 }
+
 

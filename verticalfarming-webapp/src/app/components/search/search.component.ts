@@ -4,7 +4,7 @@
 import {Component, OnInit, PipeTransform, Pipe, Output, EventEmitter} from "@angular/core";
 import {SearchService} from "../../service/search/search.service";
 import {Subject, Observable} from "rxjs";
-import {VfUtil} from "../../util/vf.util";
+import {VFUtils} from "../../util/vf.util";
 import {ISensor} from "../../model/sensor/sensor.interface";
 import {Room} from "../../model/room/room.model";
 import {Rack} from "../../model/room/rack.model";
