@@ -10,14 +10,20 @@ import {Room} from "../../model/room/room.model";
 })
 export class VFAccordian {
   @Input() rooms: Room[];
+  lastSelectedSensor: string;
   selectedSensor: string;
   selectedRack: string;
   selectedRoom: string;
   chartOpen = false;
 
   onSelectedSensorName(name: string) {
-    this.chartOpen = !this.chartOpen;
+    if(name === this.lastSelectedSensor) {
+      this.chartOpen = false;
+    } else {
+        this.chartOpen = !this.chartOpen;
+    }
     this.selectedSensor = name;
+    this.lastSelectedSensor = this.selectedRoom + this.selectedRack + name;
     console.log('sensor set to ', name);
   }
 

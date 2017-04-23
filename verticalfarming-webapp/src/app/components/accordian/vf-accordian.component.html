@@ -15,9 +15,9 @@
                 <div class="row justify-content-center">
                   <rack-detail [rack]="rack" (onSelectedSensorName)="onSelectedSensorName($event)"></rack-detail>
                 </div>
+                <br>
                 <div *ngIf="chartOpen" class="row justify-content-center">
-                  <br>
-                  <p>chart goes here</p>
+                  <vf-chart [sensors]="rack.sensors[selectedSensor]"></vf-chart>
                   <!--<vf-chart [sensors]="rack.sensors[selectedSensor]"></vf-chart>-->
                 </div>
               </template>
