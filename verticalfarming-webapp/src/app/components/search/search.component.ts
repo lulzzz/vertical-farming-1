@@ -1,47 +1,53 @@
 /**
  * Created by alexanderlerma on 2/27/17.
  */
-import {Component, OnInit, PipeTransform, Pipe, Output} from "@angular/core";
+import {Component, OnInit, PipeTransform, Pipe, Output, EventEmitter} from "@angular/core";
 import {SearchService} from "../../service/search/search.service";
-import {Subject} from "rxjs";
-import {SearchUtil} from "../../util/search/search.util";
+import {Subject, Observable} from "rxjs";
+import {VfUtil} from "../../util/vf.util";
 import {ISensor} from "../../model/sensor/sensor.interface";
 import {Room} from "../../model/room/room.model";
 import {Rack} from "../../model/room/rack.model";
+import {Sensor} from "../../model/sensor/sensor.model";
 
 @Component({
   selector: 'vf-search',
   templateUrl: './search.component.html',
   providers: [SearchService]
 })
-export class VFSearchComponent implements OnInit {
-
-  rooms: Room[];
-  query$ = new Subject<string>();
+export class VFSearchComponent {
+  @Output() onResults = new EventEmitter<Room[]>();
+  @Output() onSelected = new EventEmitter<Room>();
+  model: any;
+  searching = false;
+  searchFailed = false;
 
   constructor(private service: SearchService) {}
 
-  ngOnInit() {
-    this.service
-      .search(this.query$)
-      .subscribe(results => {
-        console.log(JSON.stringify(results));
-        const roomGrouped = SearchUtil.groupBy(results as ISensor[], 'room');
-        this.rooms = Object.keys(roomGrouped).map(key => {
-          const rackGrouped = SearchUtil.groupBy(roomGrouped[key], 'rack');
-          const racks: Rack[] = Object.keys(rackGrouped).map(x => {
-            const sensorGrouped: any = SearchUtil.groupBy(rackGrouped[x], 'type');
-            //sort the grouped values, which are arrays of ISensor
-            Object.keys(sensorGrouped).forEach(key => {
-              sensorGrouped[key].sort((a, b) => {
-                return b.createdAt - a.createdAt;
-              });
-            });
+  search = (text$: Observable<string>) =>
+    text$
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .do(() => this.searching = true)
+      .switchMap(term =>
+        this.service.search(term)
+          .do(() => this.searchFailed = false)
+          .do((results) => this.emitResults(results))
+          .catch(() => {
+            this.searchFailed = true;
+            return Observable.of([]);
+          }))
+      .do(() => this.searching = false);
 
-            return new Rack(x, sensorGrouped);
-          });
-          return new Room(key, racks);
-        });
-      });
+  emitResults(results : Room[]) {
+    this.onResults.emit(results);
   }
+
+  emitSelected(selected: any) {
+    this.onSelected.emit(selected.item as Room);
+  }
+
+
+  formatter = (x: {name: string}) => x.name;
+
 }

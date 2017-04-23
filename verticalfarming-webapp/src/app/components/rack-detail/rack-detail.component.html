@@ -1,0 +1,7 @@
+<div class="btn-group" role="group" aria-label="sensor-names">
+  <button *ngFor="let name of rack.sensorNames" class="btn btn-outline-primary"
+  (click)="emitSelectedSensor(name)">
+    {{name}}
+  </button>
+</div>
+

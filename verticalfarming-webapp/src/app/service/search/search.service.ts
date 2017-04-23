@@ -3,9 +3,10 @@
  */
 import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { Constants } from "../../config/constants/constants";
-import { ISensor } from "../../model/sensor/sensor.interface";
+import {Observable} from "rxjs";
+import {ISensor} from "../../model/sensor/sensor.interface";
+import {ModelUtil} from "../../model/util/model.util";
 
 @Injectable()
 export class SearchService  {
@@ -14,22 +15,14 @@ export class SearchService  {
 
   constructor(private http: Http) {}
 
-  search(terms: Observable<string>, debounceTime: number = 400) {
-    return terms
-      .debounceTime(debounceTime)
-      .distinctUntilChanged()
-      .switchMap(term => this.rawsearch(term));
-  }
+  search(query: string) : Observable<any> {
+    if(query === '') {
+      return Observable.of([]);
+    }
 
-  rawsearch(query) : any {
-    if(query == '')
-      return Observable.empty();
     const url = `${Constants.SERVER_URL}${this.searchUrl}?query=${query}`;
     return this.http
       .get(url)
-      .map(response => response.json() as ISensor[]);
-      // .groupBy(sensor => sensor.room)
-      // .flatMap(group => group.reduce((acc, curr) => [...acc, curr], []));
-
+      .map(response => ModelUtil.sensorsToRooms(response.json() as ISensor[]));
   }
 }

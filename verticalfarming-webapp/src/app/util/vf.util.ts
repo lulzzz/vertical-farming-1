@@ -1,9 +1,9 @@
-import {ISensor} from "../../model/sensor/sensor.interface";
+import {ISensor} from "../model/sensor/sensor.interface";
 /**
  * Created by alexanderlerma on 4/17/17.
  */
 
-export class SearchUtil {
+export class VfUtil {
 
   public static groupBy(result: any, key: string) : {[key : string] : ISensor[]} {
     const grouped : {[key : string] : ISensor[]} = {};
@@ -15,9 +15,5 @@ export class SearchUtil {
       }
     });
     return grouped;
-    // return result.reduce((rv, x) => {
-    //   (rv[x[key]] = rv[x[key]] || []).push(x);
-    //   return rv;
-    // }, {});
   }
 }

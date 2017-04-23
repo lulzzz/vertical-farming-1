@@ -1,0 +1,29 @@
+<div class="container col-md-12">
+  <ngb-accordion [closeOthers]="true" (panelChange)="onSelectedRoom($event.panelId)">
+    <ngb-panel *ngFor="let room of rooms" [id]="room.name">
+      <template ngbPanelTitle>
+        <span>{{room.name}}</span>
+      </template>
+      <template ngbPanelContent>
+        <ngb-tabset (tabChange)="onSelectedRack($event.nextId)">
+          <ngb-tab *ngFor="let rack of room.racks" [id]="rack.name">
+              <template ngbTabTitle>
+                <span>{{rack.name}}</span>
+              </template>
+              <template ngbTabContent>
+                <br>
+                <div class="row justify-content-center">
+                  <rack-detail [rack]="rack" (onSelectedSensorName)="onSelectedSensorName($event)"></rack-detail>
+                </div>
+                <div *ngIf="chartOpen" class="row justify-content-center">
+                  <br>
+                  <p>chart goes here</p>
+                  <!--<vf-chart [sensors]="rack.sensors[selectedSensor]"></vf-chart>-->
+                </div>
+              </template>
+          </ngb-tab>
+        </ngb-tabset>
+      </template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

@@ -1,2 +1,14 @@
-<vf-toolbar></vf-toolbar>
-<vf-search></vf-search>
+<nav class="navbar navbar-light bg-faded">
+  <a class="navbar-brand">Vertical Farming</a>
+  <vf-search
+    (onResults)="onRoomsReceived($event)"
+    (onSelected)="onSelectedRoom($event)">
+  </vf-search>
+</nav>
+
+<br>
+
+<div *ngIf="roomsAvailable">
+  <vf-accordian [rooms]="rooms"></vf-accordian>
+</div>
+

@@ -3,16 +3,18 @@ import { NgModule } from '@angular/core'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { VFSearchComponent, VFToolbarComponent, VFChartComponent} from'./components';
+import { VFSearchComponent} from'./components';
 import { AppComponent } from './app.component';
 import {SearchService, PhService, TemperatureService} from "./service";
+import {VFAccordian} from "./components/accordian/vf-accordian.component";
+import {RackDetail} from "./components/rack-detail/rack-detail.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    VFToolbarComponent,
-    VFChartComponent,
-    VFSearchComponent
+    VFSearchComponent,
+    VFAccordian,
+    RackDetail
   ],
   imports: [
     BrowserModule,
