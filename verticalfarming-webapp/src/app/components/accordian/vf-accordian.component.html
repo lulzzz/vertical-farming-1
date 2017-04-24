@@ -4,8 +4,11 @@
       <template ngbPanelTitle>
         <span>{{room.name}}</span>
       </template>
+      <div class="container">
+
+
       <template ngbPanelContent>
-        <ngb-tabset (tabChange)="onSelectedRack($event.nextId)">
+        <ngb-tabset class="nav-fill" (tabChange)="onSelectedRack($event.nextId)">
           <ngb-tab *ngFor="let rack of room.racks" [id]="rack.name">
               <template ngbTabTitle>
                 <span>{{rack.name}}</span>
@@ -23,6 +26,7 @@
           </ngb-tab>
         </ngb-tabset>
       </template>
+      </div>
     </ngb-panel>
   </ngb-accordion>
 </div>

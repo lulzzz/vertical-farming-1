@@ -30,6 +30,7 @@ export class VFChart {
         series.push({name: key, data: withTimes});
     });
     const type : string = VFUtils.capitalizer(sensors[0].type);
+
     this.options  = {
       chart: {
         type: 'line'
@@ -45,7 +46,7 @@ export class VFChart {
           text: type
         }
       },
-      series: series
+      series: series,
     }
   }
 

@@ -1,2 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+.nav-tabs {
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
+}
+.nav-tabs>li {
+  float: none;
+}
+
+.chart-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;
+}
