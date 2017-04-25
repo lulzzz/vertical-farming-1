@@ -39,6 +39,9 @@ export class VFChart {
         text: type + ' Chart'
       },
       xAxis: {
+        title: {
+          text: 'Time'
+        },
         type: 'datetime'
       },
       yAxis: {
@@ -46,7 +49,7 @@ export class VFChart {
           text: type
         }
       },
-      series: series,
+      series: series
     }
   }
 

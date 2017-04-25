@@ -4,6 +4,7 @@
 import * as express from "express";
 import {MethodOverride} from "./method-override.config";
 import bodyParser = require("body-parser");
+import {Constants} from "../constants/constants";
 const morgan = require('morgan');
 
 export class Middleware {
@@ -17,6 +18,7 @@ export class Middleware {
 
     public static configuration () : express.Express {
         const app: express.Express = express();
+        app.get('/', (req, res) => res.redirect(Constants.VF_URL));
         app.use(bodyParser.json());
         app.use(this.allowCrossDomain);
         app.use(morgan('combined'));
