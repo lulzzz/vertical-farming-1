@@ -1,6 +1,6 @@
 /**
  * Created by alexanderlerma on 4/2/17.
  */
-export interface BaseSchema {
+export interface ISchema {
     mongooseModel();
 }

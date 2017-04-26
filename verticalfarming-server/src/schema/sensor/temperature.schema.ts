@@ -1,10 +1,10 @@
 import {injectable} from "inversify";
-import {BaseSchema} from "../interfaces/base.schema";
+import {ISchema} from "../interfaces/base.schema";
 import {ISensor} from "../../model/interfaces/sensor/base.sensor";
 import {MongoConfig} from "../../config/db/mongo.config";
 
 @injectable()
-export class TemperatureSchema implements BaseSchema {
+export class TemperatureSchema implements ISchema {
 
     public mongooseModel() {
         return MongoConfig.getConnection().model<ISensor>("temperature", this.schema(), "temperature");

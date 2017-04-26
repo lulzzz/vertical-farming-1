@@ -7,9 +7,11 @@ import {PhRepository} from "../../repository/sensor/ph.repository";
 import {TemperatureRepository} from "../../repository/sensor/temperature.repository";
 import {TYPES} from "../../config/constants/types";
 import {HumidityRepository} from "../../repository/sensor/humidity.repository";
+import {ISensor} from "../../model/interfaces/sensor/base.sensor";
 
 @injectable()
 export class SearchService implements ISearchService {
+
 
     constructor(@inject(TYPES.PhRepository) private phRepository: PhRepository,
                 @inject(TYPES.TemperatureRepository) private temperatureRepository: TemperatureRepository,
@@ -44,5 +46,11 @@ export class SearchService implements ISearchService {
                 return minMax;
             });
     }
+
+    public retrieve = () => Promise.reject(() => console.log('not implemented'));
+    public findById = (_id: string) => Promise.reject(() => console.log('not implemented'));
+    public create = (item: ISensor) => Promise.reject(() => console.log('not implemented'));
+    public update = (_id: string, item: ISensor) => Promise.reject(() => console.log('not implemented'));
+    public delete = (_id: string) => Promise.reject(() => console.log('not implemented'));
 
 }

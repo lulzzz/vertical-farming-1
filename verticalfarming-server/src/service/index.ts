@@ -7,5 +7,5 @@ export * from './interfaces/ph.service';
 export * from './interfaces/temperature.service';
 export * from './interfaces/humidity.service';
 export * from './interfaces/search.service';
-export * from './interfaces/common/read';
-export * from './interfaces/common/write';
+export * from './interfaces/common/read.service';
+export * from './interfaces/common/write.service';
