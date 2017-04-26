@@ -22,21 +22,17 @@ export class VFAccordian {
     } else {
         this.chartOpen = !this.chartOpen;
     }
-    this.selectedSensor = name; 
+    this.selectedSensor = name;
     this.lastSelectedSensor = this.selectedRoom + this.selectedRack + name;
-    console.log('sensor set to ', name);
   }
 
   onSelectedRack(rack: string) {
     this.chartOpen = false;
     this.selectedRack = rack;
-    console.log('rack set to ', rack);
   }
 
   onSelectedRoom(room: string) {
     this.chartOpen = false;
     this.selectedRoom = room;
-    console.log('room set to ', room);
-
   }
 }

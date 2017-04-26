@@ -56,6 +56,7 @@ export class BaseRepository<T extends mongoose.Document> implements IRead<T>, IW
 
 
     public search(query: string, start?: Date, end?: Date) : Promise<any> {
+
         const regexSearch = {$or: [
             {name: {$regex: query, $options: 'i'}},
             {room: {$regex: query, $options: 'i'}},

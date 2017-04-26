@@ -23,6 +23,7 @@ export class SearchService  {
     const url = `${Constants.SERVER_URL}${this.searchUrl}?query=${query}`;
     return this.http
       .get(url)
-      .map(response => ModelUtil.sensorsToRooms(response.json() as ISensor[]));
+      .map(response => response.json() as ISensor[])
+      .map(ModelUtil.sensorsToRooms);
   }
 }
